@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reemay's Enchanted Paradise 🌸</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom CSS with enhanced styling */
+        :root {
+            --pink: #ff4d8d;
+            --blue: #4da6ff;
+            --purple: #b366ff;
+            --yellow: #ffcc4d;
+            --teal: #2dd4bf;
+            --parrot-green: #50fa7b;
+            --parrot-blue: #8be9fd;
+        }
+        
+        body {
+            scroll-behavior: smooth;
+            background: radial-gradient(circle at center, #fff8fb 0%, #f0f8ff 100%);
+            font-family: 'Nunito', 'Comic Sans MS', cursive, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced animations */
+        @keyframes flower-fall {
+            0% { transform: translateY(-100px) rotate(0deg) scale(0.5); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg) scale(1); opacity: 0; }
+        }
+
+        .falling-flower {
+            position: fixed;
+            pointer-events: none;
+            animation: flower-fall 8s linear forwards;
+            z-index: 90;
+            font-size: 24px;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.7));
+        }
+
+        /* Parrot OS inspired terminal */
+        .terminal {
+            background: rgba(40, 42, 54, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            font-family: 'Courier New', monospace;
+            color: #f8f8f2;
+            overflow: hidden;
+        }
+        
+        .terminal-header {
+            background: rgba(68, 71, 90, 0.8);
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .terminal-body {
+            padding: 15px;
+            height: 200px;
+            overflow-y: auto;
+        }
+        
+        .terminal-command {
+            color: var(--parrot-green);
+        }
+        
+        .terminal-path {
+            color: var(--parrot-blue);
+        }
+        
+        /* Hacker effect */
+        .hacker-text {
+            font-family: 'Courier New', monospace;
+            background: rgba(0,0,0,0.7);
+            color: #0f0;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #0f0;
+            text-shadow: 0 0 5px #0f0;
+        }
+
+        /* Enhanced card flip */
+        .flip-card {
+            perspective: 1000px;
+        }
+
+        .flip-card-inner {
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            backface-visibility: hidden;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #ffe6f2;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--pink);
+            border-radius: 10px;
+            border: 2px solid #ffe6f2;
+        }
+
+        /* Rainbow text with enhanced animation */
+        .rainbow-text {
+            background: linear-gradient(90deg, 
+                var(--pink), 
+                var(--yellow), 
+                var(--blue), 
+                var(--purple), 
+                var(--teal),
+                var(--pink));
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: rainbow 8s ease infinite;
+        }
+
+        @keyframes rainbow {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
+        }
+
+        /* Photo frame with enhanced hover */
+        .photo-frame {
+            border: 15px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: rotate(3deg);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: white;
+            overflow: hidden;
+        }
+
+        .photo-frame:hover {
+            transform: rotate(0deg) scale(1.08);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Memory book with depth */
+        .memory-book {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transform: rotate(-2deg);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .memory-book:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, var(--pink), var(--blue));
+        }
+
+        .memory-book:hover {
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        }
+
+        /* Floating hearts */
+        @keyframes float-heart {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .floating-heart {
+            animation: float-heart 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 5px rgba(255,105,180,0.7));
+        }
+
+        /* Glow effect */
+        .glow {
+            animation: glow-pulse 3s infinite alternate;
+        }
+
+        @keyframes glow-pulse {
+            from { filter: drop-shadow(0 0 5px rgba(255,105,180,0.5)); }
+            to { filter: drop-shadow(0 0 15px rgba(255,105,180,0.9)); }
+        }
+
+        /* Parrot OS inspired button */
+        .parrot-btn {
+            background: linear-gradient(135deg, var(--parrot-green), var(--parrot-blue));
+            color: #282a36;
+            font-weight: bold;
+            border: none;
+            transition: all 0.3s;
+        }
+
+        .parrot-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(80, 250, 123, 0.3);
+        }
+
+        /* Custom cursor */
+        .cursor-pointer {
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='%23ff4d8d' d='M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z'/></svg>"), auto;
+        }
+
+        /* Love meter */
+        .love-meter {
+            height: 20px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #ff4d8d, #ff8fab, #ffb3c6);
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .love-meter-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff4d8d, #ff006e);
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        /* Secret message decoder */
+        .decoder-ring {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #ff4d8d, #ff8fab, #ffb3c6, #ffccd5, 
+                #ffdddf, #ffccd5, #ffb3c6, #ff8fab, #ff4d8d
+            );
+            position: relative;
+            animation: spin 20s linear infinite;
+            box-shadow: 0 0 20px rgba(255,77,141,0.5);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Floating island effect */
+        .floating-island {
+            animation: float-island 6s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        @keyframes float-island {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+    </style>
+</head>
+<body class="min-h-screen cursor-pointer">
+    <!-- Falling Flowers Container -->
+    <div id="falling-flowers-container"></div>
+
+    <!-- Floating Hearts -->
+    <div class="fixed top-20 left-10 text-4xl text-pink-500 opacity-80 floating-heart" style="animation-delay: 0.3s;">❤️</div>
+    <div class="fixed top-1/3 right-16 text-5xl text-red-400 opacity-80 floating-heart" style="animation-delay: 1s;">💖</div>
+    <div class="fixed bottom-20 left-1/4 text-6xl text-pink-300 opacity-80 floating-heart" style="animation-delay: 2s;">💕</div>
+    <div class="fixed bottom-1/3 right-1/4 text-3xl text-rose-400 opacity-80 floating-heart" style="animation-delay: 0.5s;">💗</div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white bg-opacity-90 shadow-md z-50 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-20">
+                <div class="text-2xl font-bold rainbow-text flex items-center">
+                    <i class="fas fa-heart mr-2 animate-pulse"></i>
+                    Reemay's Paradise
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-pink-600 hover:text-blue-600 transition font-bold flex items-center group">
+                        <i class="fas fa-home mr-2 group-hover:animate-bounce"></i> Home
+                    </a>
+                    <a href="#magic" class="text-blue-600 hover:text-purple-600 transition font-bold flex items-center group">
+                        <i class="fas fa-sparkles mr-2 group-hover:animate-spin"></i> Magic
+                    </a>
+                    <a href="#memories" class="text-purple-600 hover:text-pink-600 transition font-bold flex items-center group">
+                        <i class="fas fa-book mr-2 group-hover:animate-pulse"></i> Memories
+                    </a>
+                    <a href="#tech" class="text-green-500 hover:text-blue-500 transition font-bold flex items-center group">
+                        <i class="fas fa-code mr-2 group-hover:animate-pulse"></i> Tech Love
+                    </a>
+                    <a href="#joy" class="text-yellow-600 hover:text-blue-600 transition font-bold flex items-center group">
+                        <i class="fas fa-smile-beam mr-2 group-hover:animate-bounce"></i> Joy
+                    </a>
+                    <a href="#music" class="text-teal-600 hover:text-pink-600 transition font-bold flex items-center group">
+                        <i class="fas fa-music mr-2 group-hover:animate-spin"></i> Music
+                    </a>
+                </div>
+                <button id="mobile-menu-button" class="md:hidden text-pink-600">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-4 shadow-lg">
+            <a href="#home" class="block py-3 text-pink-600 font-bold border-b border-pink-100 flex items-center">
+                <i class="fas fa-home mr-2"></i> Home
+            </a>
+            <a href="#magic" class="block py-3 text-blue-600 font-bold border-b border-blue-100 flex items-center">
+                <i class="fas fa-sparkles mr-2"></i> Magic
+            </a>
+            <a href="#memories" class="block py-3 text-purple-600 font-bold border-b border-purple-100 flex items-center">
+                <i class="fas fa-book mr-2"></i> Memories
+            </a>
+            <a href="#tech" class="block py-3 text-green-500 font-bold border-b border-green-100 flex items-center">
+                <i class="fas fa-code mr-2"></i> Tech Love
+            </a>
+            <a href="#joy" class="block py-3 text-yellow-600 font-bold border-b border-yellow-100 flex items-center">
+                <i class="fas fa-smile-beam mr-2"></i> Joy
+            </a>
+            <a href="#music" class="block py-3 text-teal-600 font-bold flex items-center">
+                <i class="fas fa-music mr-2"></i> Music
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-28 pb-16 md:pt-36 md:pb-24 px-4 max-w-7xl mx-auto min-h-screen flex items-center relative overflow-hidden">
+        <!-- Animated background -->
+        <div class="absolute -z-10 w-full h-full overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full opacity-10">
+                <div class="text-9xl animate-spin-slow" style="animation-duration: 40s;">🌸</div>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row items-center w-full">
+            <div class="md:w-1/2 mb-10 md:mb-0 animate__animated animate__fadeInLeft">
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-6 rainbow-text">
+                    Welcome to Your Paradise! 🌸
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-800 mb-8 font-medium">
+                   A digital garden full of beauty, growing with love just for you, Reemay.
+                </p>
+                
+                <!-- Love Meter -->
+                <div class="mb-8">
+                    <div class="flex justify-between mb-2">
+                        <span class="text-pink-600 font-bold">How Much You're Loved:</span>
+                        <span id="love-percent" class="text-pink-600 font-bold">100%</span>
+                    </div>
+                    <div class="love-meter">
+                        <div id="love-meter-fill" class="love-meter-fill" style="width: 100%"></div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap gap-4">
+                    <button id="magic-button" class="bg-gradient-to-r from-pink-500 to-blue-500 hover:from-pink-600 hover:to-blue-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex items-center">
+                        <i class="fas fa-magic mr-3 animate-spin"></i> Create Magic!
+                    </button>
+                    
+                    <button id="secret-btn" class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex items-center">
+                        <i class="fas fa-lock mr-3"></i> Secret Message
+                    </button>
+                </div>
+            </div>
+            
+            <div class="md:w-1/2 animate__animated animate__fadeInRight">
+                <div class="relative floating-island">
+                    <div class="photo-frame w-72 h-72 mx-auto overflow-hidden bg-gradient-to-br from-pink-200 to-blue-200">
+                        <img src="./melany.jpg" 
+                             alt="Reemay" 
+                             class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="absolute -bottom-5 -right-5 bg-white rounded-full p-2 shadow-lg border-4 border-yellow-300 transform hover:rotate-12 transition">
+                        <div class="bg-gradient-to-r from-yellow-400 to-pink-500 text-white rounded-full w-20 h-20 flex items-center justify-center text-3xl glow">
+                            ✨
+                        </div>
+                    </div>
+                    <div class="absolute -top-5 -left-5 bg-white rounded-full p-2 shadow-lg border-4 border-blue-300 transform hover:-rotate-12 transition">
+                        <div class="bg-gradient-to-r from-blue-400 to-teal-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl glow">
+                            💖
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Magic Section -->
+    <section id="magic" class="py-20 px-4 bg-white bg-opacity-70 backdrop-blur-lg">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-16 rainbow-text">
+                Reemay's Magical Qualities ✨
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="flip-card h-80">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front bg-gradient-to-br from-pink-100 to-blue-100 rounded-2xl shadow-lg p-6 border-4 border-pink-300">
+                            <div class="text-6xl mb-4 text-pink-500 animate-bounce">
+                                🌟
+                            </div>
+                            <h3 class="text-2xl font-bold text-center text-pink-700">
+                                Radiant Energy
+                            </h3>
+                            <p class="text-gray-600 text-center mt-2">
+                                Click to reveal the magic
+                            </p>
+                        </div>
+                        <div class="flip-card-back bg-gradient-to-br from-blue-100 to-pink-100 rounded-2xl shadow-lg p-6 border-4 border-blue-300">
+                            <p class="text-gray-800 font-medium text-center">
+                                Your smile could power cities! You light up every room with your incredible energy. Being around you is like standing in sunshine - warm, bright, and impossible to resist!
+                            </p>
+                            <div class="mt-4 text-4xl text-pink-500">
+                                💫
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="flip-card h-80">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl shadow-lg p-6 border-4 border-blue-300">
+                            <div class="text-6xl mb-4 text-blue-500 animate-bounce">
+                                💖
+                            </div>
+                            <h3 class="text-2xl font-bold text-center text-blue-700">
+                                Golden Heart
+                            </h3>
+                            <p class="text-gray-600 text-center mt-2">
+                                Click to reveal the magic
+                            </p>
+                        </div>
+                        <div class="flip-card-back bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl shadow-lg p-6 border-4 border-purple-300">
+                            <p class="text-gray-800 font-medium text-center">
+                                Your kindness is legendary! You have this magical way of making everyone feel special. The world needs more people like you - compassionate, understanding, and full of love.
+                            </p>
+                            <div class="mt-4 text-4xl text-blue-500">
+                                🌈
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="flip-card h-80">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front bg-gradient-to-br from-purple-100 to-yellow-100 rounded-2xl shadow-lg p-6 border-4 border-purple-300">
+                            <div class="text-6xl mb-4 text-purple-500 animate-bounce">
+                                🎨
+                            </div>
+                            <h3 class="text-2xl font-bold text-center text-purple-700">
+                                Creative Genius
+                            </h3>
+                            <p class="text-gray-600 text-center mt-2">
+                                Click to reveal the magic
+                            </p>
+                        </div>
+                        <div class="flip-card-back bg-gradient-to-br from-yellow-100 to-purple-100 rounded-2xl shadow-lg p-6 border-4 border-yellow-300">
+                            <p class="text-gray-800 font-medium text-center">
+                                Your imagination is a wonderland! The way you see the world is pure magic. Whether it's art, ideas, or solutions, your creativity turns ordinary into extraordinary.
+                            </p>
+                            <div class="mt-4 text-4xl text-purple-500">
+                                🎨
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Love Section (Parrot OS Inspired) -->
+    <section id="tech" class="py-20 px-4 bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-16">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">Tech Love</span> 
+                <span class="text-pink-400">Terminal</span> 💻
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-btn bg-red-500"></div>
+                        <div class="terminal-btn bg-yellow-500"></div>
+                        <div class="terminal-btn bg-green-500"></div>
+                        <div class="ml-2 text-sm">reemay-paradise -- bash</div>
+                    </div>
+                    <div class="terminal-body" id="terminal-output">
+                        <div class="mb-2"><span class="terminal-path">user@reemay-paradise:~$</span> <span class="terminal-command">./start_love_engine.sh</span></div>
+                        <div class="mb-2">Initializing Reemay Appreciation Module...</div>
+                        <div class="mb-2">Loading Adoration Libraries...</div>
+                        <div class="mb-2">Compiling Compliments...</div>
+                        <div class="mb-2">Love Engine Started Successfully!</div>
+                        <div class="mb-2"><span class="terminal-path">user@reemay-paradise:~$</span> <span class="terminal-command">./analyze_perfection.sh</span></div>
+                        <div class="mb-2">Analyzing Reemay's Awesomeness...</div>
+                        <div class="mb-2">Results: 100% Perfect</div>
+                        <div class="mb-2">Conclusion: Unmatched in All Metrics</div>
+                        <div class="mb-2"><span class="terminal-path">user@reemay-paradise:~$</span> <span class="terminal-command" id="terminal-cursor">_</span></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-3xl font-bold mb-6 text-pink-300">Coded With Love 💖</h3>
+                    <p class="text-lg mb-6 text-gray-300">
+                        Looks like a terminal, but it runs on heartbeats, butterflies, and Reemay. Welcome to the Love Terminal — no errors, just pure appreciation and emotional uptime.
+                    </p>
+                    <div class="mb-8">
+                        <div class="hacker-text mb-4" id="hacker-text">
+                            > DECODING REEMAY'S SPECIAL QUALITIES...<br>
+                            > ENCRYPTION: LOVE-256<br>
+                            > OUTPUT: PERFECTION
+                        </div>
+                        <button id="hack-btn" class="parrot-btn px-6 py-3 rounded-lg font-bold flex items-center">
+                            <i class="fas fa-terminal mr-2"></i> Run Love Scan
+                        </button>
+                    </div>
+                    
+                    <!-- Decoder Ring -->
+                    <div class="text-center">
+                        <h4 class="text-xl font-bold mb-4 text-blue-300">Secret Message Decoder</h4>
+                        <div class="flex justify-center mb-4">
+                            <div class="decoder-ring flex items-center justify-center">
+                                <div class="bg-gray-900 rounded-full w-3/4 h-3/4 flex items-center justify-center text-white font-mono text-sm text-center p-4">
+                                    Turn me to decode<br>hidden messages
+                                </div>
+                            </div>
+                        </div>
+                        <button id="decode-btn" class="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-6 py-3 rounded-lg font-bold">
+                            <i class="fas fa-unlock-alt mr-2"></i> Decode Love Message
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Memories Section -->
+    <section id="memories" class="py-20 px-4 bg-gradient-to-b from-pink-50 to-blue-50 relative overflow-hidden">
+        <!-- Background elements -->
+        <div class="absolute top-0 left-0 w-full h-full -z-10 overflow-hidden">
+            <div class="absolute top-20 left-20 text-pink-200 text-9xl opacity-10 animate-float" style="animation-duration: 15s;">✿</div>
+            <div class="absolute bottom-20 right-20 text-blue-200 text-9xl opacity-10 animate-float" style="animation-duration: 18s; animation-delay: 2s;">❀</div>
+        </div>
+
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-16 rainbow-text">
+                Memory Garden 🌼
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Memory 1 -->
+                <div class="memory-book bg-gradient-to-br from-pink-50 to-blue-50">
+                    <div class="text-4xl text-center mb-4 text-pink-500 animate-bounce">📸</div>
+                    <h3 class="text-xl font-bold text-center text-pink-700 mb-3">
+                        Our First Meet
+                    </h3>
+                    <p class="text-gray-700 text-center mb-4">
+                        Remember when we first met? The world became brighter that day!
+                    </p>
+                    <div class="photo-frame w-full h-48 overflow-hidden bg-gradient-to-br from-pink-200 to-blue-200">
+                        <img src="./3melany.jpg" 
+                             alt="Memory" 
+                             class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="mt-4 text-center text-sm text-gray-500">
+                        <i class="fas fa-heart text-pink-400"></i> Timestamp: Forever in my heart
+                    </div>
+                </div>
+                
+                <!-- Memory 2 -->
+                <div class="memory-book bg-gradient-to-br from-blue-50 to-purple-50">
+                    <div class="text-4xl text-center mb-4 text-blue-500 animate-bounce">🎂</div>
+                    <h3 class="text-xl font-bold text-center text-blue-700 mb-3">
+                        Your Last Birthday
+                    </h3>
+                    <p class="text-gray-700 text-center mb-4">
+                        That amazing day when we celebrated you - the star of the show!
+                    </p>
+                    <div class="photo-frame w-full h-48 overflow-hidden bg-gradient-to-br from-blue-200 to-purple-200">
+                        <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" 
+                             alt="Memory" 
+                             class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="mt-4 text-center text-sm text-gray-500">
+                        <i class="fas fa-heart text-blue-400"></i> Timestamp: Eternal happiness
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <button id="add-memory-btn" class="bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg transition transform hover:scale-105 flex items-center mx-auto">
+                    <i class="fas fa-plus mr-2"></i> Plant a New Memory
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Joy Generator -->
+    <section id="joy" class="py-20 px-4 bg-white bg-opacity-70 backdrop-blur-lg min-h-screen">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-8 rainbow-text">
+                Happiness Generator 🌸
+            </h2>
+            <p class="text-xl text-gray-800 mb-12 font-medium">
+                Custom joy designed just for Reemay!
+            </p>
+            
+            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-2xl mb-12 border-4 border-pink-300 relative overflow-hidden cloud bg-gradient-to-r from-pink-100 to-blue-100">
+                <div class="absolute -z-10 w-full h-full overflow-hidden">
+                    <div class="absolute top-10 left-10 text-pink-200 text-5xl opacity-20 animate-float" style="animation-duration: 12s;">❀</div>
+                    <div class="absolute bottom-10 right-10 text-blue-200 text-5xl opacity-20 animate-float" style="animation-duration: 15s; animation-delay: 3s;">✿</div>
+                </div>
+                
+                <div id="compliment-display" class="text-2xl md:text-3xl font-bold min-h-48 flex items-center justify-center rainbow-text">
+                    Ready for your daily dose of happiness? Click below!
+                </div>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-4">
+                <button id="compliment-button" class="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg transition transform hover:scale-105 flex items-center">
+                    <i class="fas fa-gift mr-2"></i> Get Happy Boost
+                </button>
+                
+                <button id="confetti-button" class="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg transition transform hover:scale-105 flex items-center">
+                    <i class="fas fa-sparkles mr-2"></i> Confetti Blast!
+                </button>
+
+                <button id="flower-storm-btn" class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg transition transform hover:scale-105 flex items-center">
+                    <i class="fas fa-spa mr-2"></i> Flower Storm!
+                </button>
+            </div>
+            
+            <div class="mt-12">
+                <h3 class="text-2xl font-bold text-pink-700 mb-4">Send Reemay a Virtual Hug!</h3>
+                <div class="flex justify-center space-x-4">
+                    <button class="hug-btn bg-pink-500 text-white w-16 h-16 rounded-full text-2xl shadow-lg hover:bg-pink-600 transition transform hover:scale-110">🤗</button>
+                    <button class="hug-btn bg-blue-500 text-white w-16 h-16 rounded-full text-2xl shadow-lg hover:bg-blue-600 transition transform hover:scale-110">🥰</button>
+                    <button class="hug-btn bg-purple-500 text-white w-16 h-16 rounded-full text-2xl shadow-lg hover:bg-purple-600 transition transform hover:scale-110">💖</button>
+                    <button class="hug-btn bg-yellow-500 text-white w-16 h-16 rounded-full text-2xl shadow-lg hover:bg-yellow-600 transition transform hover:scale-110">😘</button>
+                </div>
+                <p id="hug-message" class="mt-4 text-lg text-gray-700 font-medium"></p>
+            </div>
+
+            <div class="mt-12 bg-gradient-to-r from-pink-100 to-blue-100 rounded-2xl p-6 shadow-lg">
+                <h3 class="text-2xl font-bold text-purple-700 mb-4">Daily Affirmation</h3>
+                <div id="affirmation-display" class="text-xl font-medium text-gray-800 mb-4">
+                    You are enough, just as you are.
+                </div>
+                <button id="new-affirmation-btn" class="bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white px-6 py-3 rounded-full font-bold text-md shadow-lg transition transform hover:scale-105 flex items-center mx-auto">
+                    <i class="fas fa-redo mr-2"></i> New Affirmation
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Player -->
+    <section id="music" class="py-20 px-4 bg-gradient-to-b from-blue-50 to-purple-50 relative overflow-hidden">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-8 rainbow-text">
+                Reemay's Joyful Tunes 🎶
+            </h2>
+            
+            <div class="bg-white rounded-3xl p-8 shadow-2xl mb-8 border-4 border-purple-300 relative">
+                <div id="music-visualizer" class="h-32 mb-6 relative overflow-hidden">
+                    <!-- Music notes will appear here -->
+                </div>
+                
+                <h3 class="text-2xl font-bold text-purple-700 mb-4">Your Happy Playlist</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <button class="song-btn bg-pink-100 hover:bg-pink-200 text-pink-800 px-4 py-2 rounded-lg font-medium transition transform hover:-translate-y-1 flex items-center justify-center">
+                        <i class="fas fa-music mr-2"></i> Happy Days
+                    </button>
+                    <button class="song-btn bg-blue-100 hover:bg-blue-200 text-blue-800 px-4 py-2 rounded-lg font-medium transition transform hover:-translate-y-1 flex items-center justify-center">
+                        <i class="fas fa-music mr-2"></i> Sunshine Melody
+                    </button>
+                    <button class="song-btn bg-purple-100 hover:bg-purple-200 text-purple-800 px-4 py-2 rounded-lg font-medium transition transform hover:-translate-y-1 flex items-center justify-center">
+                        <i class="fas fa-music mr-2"></i> Joyful Heart
+                    </button>
+                </div>
+                
+                <div class="flex justify-center space-x-4">
+                    <button id="play-btn" class="bg-gradient-to-r from-pink-500 to-purple-500 text-white w-12 h-12 rounded-full text-xl shadow-lg hover:opacity-90 transition transform hover:scale-110 flex items-center justify-center">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <button id="pause-btn" class="bg-gradient-to-r from-blue-500 to-teal-500 text-white w-12 h-12 rounded-full text-xl shadow-lg hover:opacity-90 transition transform hover:scale-110 flex items-center justify-center">
+                        <i class="fas fa-pause"></i>
+                    </button>
+                    <button id="stop-btn" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white w-12 h-12 rounded-full text-xl shadow-lg hover:opacity-90 transition transform hover:scale-110 flex items-center justify-center">
+                        <i class="fas fa-stop"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <p class="text-gray-700 font-medium">
+                Music to match your beautiful spirit! Dance like nobody's watching!
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-pink-500 to-blue-500 text-white py-16 px-4 relative overflow-hidden">
+        <!-- Floating elements -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
+            <div class="absolute top-20 left-20 text-white text-6xl opacity-20 animate-float" style="animation-duration: 15s;">✿</div>
+            <div class="absolute bottom-20 right-20 text-white text-6xl opacity-20 animate-float" style="animation-duration: 18s; animation-delay: 2s;">❀</div>
+        </div>
+
+        <div class="max-w-6xl mx-auto text-center relative">
+            <div class="text-6xl mb-6 animate-bounce" style="animation-delay: 0.3s;">🌺</div>
+            <h3 class="text-3xl font-bold mb-6">
+                Thank you for being you!
+            </h3>
+            <p class="text-xl mb-8 max-w-2xl mx-auto font-medium">
+                Reemay, you're the most beautiful flower in life's garden. Keep blooming!
+            </p>
+            <div class="text-white text-opacity-80 font-medium">
+                Cultivated with <i class="fas fa-heart text-pink-300 animate-pulse"></i> by Vinny
+            </div>
+        </div>
+    </footer>
+
+    <!-- Confetti Container -->
+    <div id="confetti-container"></div>
+    
+    <!-- Secret Message Modal -->
+    <div id="secret-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
+        <div class="bg-gradient-to-br from-pink-100 to-blue-100 rounded-2xl p-8 max-w-md mx-4 relative">
+            <button id="close-secret" class="absolute top-4 right-4 text-gray-600 hover:text-gray-900">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            <h3 class="text-2xl font-bold text-pink-700 mb-4">A Secret Just For You</h3>
+            <div class="text-lg text-gray-800 mb-6">
+                <p>Every time you smile, my heart does a little happy dance. You're more magical than you realize!</p>
+                <p class="mt-4 text-pink-600 font-medium">You're loved more than words can express. 💖</p>
+            </div>
+            <div class="text-center text-4xl text-pink-500 animate-bounce">
+                💌
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+                this.innerHTML = mobileMenu.classList.contains('hidden') ? 
+                    '<i class="fas fa-bars text-2xl"></i>' : 
+                    '<i class="fas fa-times text-2xl"></i>';
+            });
+
+            // Magic button
+            const magicButton = document.getElementById('magic-button');
+            magicButton.addEventListener('click', function() {
+                createConfetti(50);
+                createFallingFlowers(30);
+                setTimeout(() => {
+                    alert("✨ Abracadabra! Your paradise is blooming with magic! ✨");
+                }, 500);
+                
+                // Animate love meter
+                animateLoveMeter();
+            });
+
+            // Secret button
+            const secretBtn = document.getElementById('secret-btn');
+            const secretModal = document.getElementById('secret-modal');
+            const closeSecret = document.getElementById('close-secret');
+            
+            secretBtn.addEventListener('click', function() {
+                secretModal.classList.remove('hidden');
+                createConfetti(20);
+            });
+            
+            closeSecret.addEventListener('click', function() {
+                secretModal.classList.add('hidden');
+            });
+
+            // Love meter animation
+            function animateLoveMeter() {
+                const meter = document.getElementById('love-meter-fill');
+                const percent = document.getElementById('love-percent');
+                
+                // Reset to 0
+                meter.style.width = '0%';
+                percent.textContent = '0%';
+                
+                // Animate to 100%
+                let width = 0;
+                const interval = setInterval(() => {
+                    if (width >= 100) {
+                        clearInterval(interval);
+                    } else {
+                        width++;
+                        meter.style.width = width + '%';
+                        percent.textContent = width + '%';
+                        
+                        // Change color based on percentage
+                        if (width < 30) {
+                            meter.style.background = 'linear-gradient(90deg, #ff4d8d, #ff8fab)';
+                        } else if (width < 70) {
+                            meter.style.background = 'linear-gradient(90deg, #ff4d8d, #ff6b9d)';
+                        } else {
+                            meter.style.background = 'linear-gradient(90deg, #ff4d8d, #ff006e)';
+                        }
+                    }
+                }, 20);
+            }
+
+            // Terminal cursor animation
+            const terminalCursor = document.getElementById('terminal-cursor');
+            setInterval(() => {
+                terminalCursor.style.opacity = terminalCursor.style.opacity === '0' ? '1' : '0';
+            }, 500);
+
+            // Hacker text effect
+            const hackerText = document.getElementById('hacker-text');
+            const hackBtn = document.getElementById('hack-btn');
+            
+            hackBtn.addEventListener('click', function() {
+                const messages = [
+                    "> SCANNING FOR PERFECTION...\n> RESULT: REEMAY FOUND\n> LEVEL: MAXIMUM",
+                    "> ANALYZING CHARM...\n> CHARISMA: OVERFLOW\n> BEAUTY: UNMEASURABLE",
+                    "> RUNNING LOVE DIAGNOSTIC...\n> HEART: PURE GOLD\n> SOUL: RADIANT",
+                    "> CHECKING FOR FLAWS...\n> ERROR: NONE DETECTED\n> STATUS: FLAWLESS"
+                ];
+                
+                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                hackerText.textContent = randomMessage;
+                
+                // Add typing effect
+                hackerText.textContent = "";
+                let i = 0;
+                const typing = setInterval(() => {
+                    if (i < randomMessage.length) {
+                        hackerText.textContent += randomMessage.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(typing);
+                    }
+                }, 50);
+                
+                createConfetti(10);
+            });
+
+            // Decoder button
+            const decodeBtn = document.getElementById('decode-btn');
+            decodeBtn.addEventListener('click', function() {
+                const messages = [
+                    "You're more precious than the rarest gem",
+                    "Your smile is my favorite sight",
+                    "The world is better with you in it",
+                    "You're loved more than words can say"
+                ];
+                
+                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                alert(`🔐 Decoded Message: "${randomMessage}"`);
+                createConfetti(15);
+            });
+
+            // Compliment generator
+            const compliments = [
+                "Reemay, your smile could power cities!",
+                "You're like a human sunshine - warm and bright!",
+                "Your laugh is my favorite sound in the world!",
+                "You make every day feel like a celebration!",
+                "Being around you is like being in a happiness bubble!",
+                "Your energy is more contagious than a yawn (but way more fun)!",
+                "You're the human equivalent of a perfect summer day!",
+                "If joy had a face, it would look exactly like yours!",
+                "You're not just a star - you're the whole galaxy!",
+                "The world should issue 'Reemay sightings' as happiness alerts!",
+                "You're what happiness would look like if it took human form!",
+                "Your presence is like a personal happiness festival!",
+                "You're the reason the word 'awesome' exists!",
+                "If smiles were money, you'd be a billionaire!",
+                "You're like a walking, talking happiness potion!",
+                "Your vibe is so positive it should come with a warning label!",
+                "You're the human version of a confetti cannon!",
+                "Your energy is brighter than a disco ball in sunlight!",
+                "You're like a happiness magnet - you attract all the good vibes!",
+                "If joy was a person, it would be your stunt double!"
+            ];
+            
+            const complimentDisplay = document.getElementById('compliment-display');
+            const complimentButton = document.getElementById('compliment-button');
+            
+            complimentButton.addEventListener('click', function() {
+                const randomCompliment = compliments[Math.floor(Math.random() * compliments.length)];
+                complimentDisplay.classList.add('animate__animated', 'animate__pulse');
+                complimentDisplay.textContent = randomCompliment;
+                
+                setTimeout(() => {
+                    complimentDisplay.classList.remove('animate__animated', 'animate__pulse');
+                }, 1000);
+                
+                createConfetti(10);
+                createFallingFlowers(5);
+            });
+
+            // Affirmation generator
+            const affirmations = [
+                "You are enough, just as you are.",
+                "Your presence is a gift to the world.",
+                "You radiate beauty from the inside out.",
+                "Every day is a new opportunity to shine.",
+                "You are stronger than you think.",
+                "Your potential is limitless.",
+                "You deserve love and happiness.",
+                "The world is better because you're in it.",
+                "You are capable of amazing things.",
+                "Your kindness makes a difference."
+            ];
+            
+            const affirmationDisplay = document.getElementById('affirmation-display');
+            const newAffirmationBtn = document.getElementById('new-affirmation-btn');
+            
+            newAffirmationBtn.addEventListener('click', function() {
+                const randomAffirmation = affirmations[Math.floor(Math.random() * affirmations.length)];
+                affirmationDisplay.classList.add('animate__animated', 'animate__flipInX');
+                affirmationDisplay.textContent = randomAffirmation;
+                
+                setTimeout(() => {
+                    affirmationDisplay.classList.remove('animate__animated', 'animate__flipInX');
+                }, 1000);
+                
+                createConfetti(5);
+            });
+
+            // Confetti button
+            const confettiButton = document.getElementById('confetti-button');
+            confettiButton.addEventListener('click', function() {
+                createConfetti(150);
+                complimentDisplay.textContent = "CONFETTI BLAST! Because you deserve a celebration! 🎉";
+            });
+
+            // Flower storm button
+            const flowerStormBtn = document.getElementById('flower-storm-btn');
+            flowerStormBtn.addEventListener('click', function() {
+                createFallingFlowers(80);
+                complimentDisplay.textContent = "🌸 FLOWER STORM! You're as beautiful as these blossoms! 🌸";
+            });
+
+            // Hug buttons
+            const hugButtons = document.querySelectorAll('.hug-btn');
+            const hugMessages = [
+                "A warm, squishy hug just for you! 🤗",
+                "Sending you a hug so tight it squeaks! 🥰",
+                "Virtual hug delivered with extra love! 💖",
+                "Consider yourself hugged from head to toe! 😘",
+                "Hug attack! Brace for impact! 🤗",
+                "Sending hugs that last at least 7 seconds! 🥰",
+                "This hug comes with bonus back pats! 💖",
+                "Emergency hug delivery - open immediately! 😘"
+            ];
+            
+            hugButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const hugMessage = document.getElementById('hug-message');
+                    const randomMessage = hugMessages[Math.floor(Math.random() * hugMessages.length)];
+                    
+                    hugMessage.textContent = randomMessage;
+                    hugMessage.classList.add('animate__animated', 'animate__rubberBand');
+                    
+                    setTimeout(() => {
+                        hugMessage.classList.remove('animate__animated', 'animate__rubberBand');
+                    }, 1000);
+                    
+                    createConfetti(15);
+                    createFallingFlowers(8);
+                });
+            });
+
+            // Add memory button
+            const addMemoryBtn = document.getElementById('add-memory-btn');
+            addMemoryBtn.addEventListener('click', function() {
+                alert("📸 Let's create new beautiful memories together! (This would open a memory upload form in a real app)");
+                createConfetti(30);
+                createFallingFlowers(15);
+            });
+
+            // Music player functionality
+            const playBtn = document.getElementById('play-btn');
+            const pauseBtn = document.getElementById('pause-btn');
+            const stopBtn = document.getElementById('stop-btn');
+            const musicVisualizer = document.getElementById('music-visualizer');
+            let musicNotesInterval;
+            
+            playBtn.addEventListener('click', function() {
+                createMusicNotes();
+                musicNotesInterval = setInterval(createMusicNotes, 800);
+            });
+            
+            pauseBtn.addEventListener('click', function() {
+                clearInterval(musicNotesInterval);
+            });
+            
+            stopBtn.addEventListener('click', function() {
+                clearInterval(musicNotesInterval);
+                musicVisualizer.innerHTML = '';
+            });
+            
+            function createMusicNotes() {
+                const notes = ['♪', '♫', '♩', '♬', '♭', '♮'];
+                const colors = ['#ff4d8d', '#4da6ff', '#b366ff', '#ffcc4d', '#2dd4bf'];
+                
+                for (let i = 0; i < 3; i++) {
+                    const note = document.createElement('div');
+                    note.classList.add('music-note');
+                    note.textContent = notes[Math.floor(Math.random() * notes.length)];
+                    note.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    note.style.left = `${Math.random() * 100}%`;
+                    note.style.fontSize = `${Math.random() * 20 + 20}px`;
+                    note.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                    
+                    musicVisualizer.appendChild(note);
+                    
+                    setTimeout(() => {
+                        note.remove();
+                    }, 4000);
+                }
+            }
+
+            // Create confetti effect
+            function createConfetti(count) {
+                const container = document.getElementById('confetti-container');
+                const emojis = ['🌸', '🌼', '✨', '🌟', '💖', '💫', '🎀', '🎉', '🎊', '💕', '💞', '💓', '💗', '💘'];
+                const colors = ['#ff4d8d', '#4da6ff', '#b366ff', '#ffcc4d', '#ff8fab', '#a2d2ff', '#cdb4db'];
+                
+                for (let i = 0; i < count; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.classList.add('confetti');
+                    confetti.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                    
+                    const size = Math.random() * 24 + 16;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    const left = Math.random() * 100;
+                    const animationDuration = Math.random() * 3 + 2;
+                    const delay = Math.random() * 3;
+                    const rotation = Math.random() * 360;
+                    
+                    confetti.style.left = `${left}vw`;
+                    confetti.style.fontSize = `${size}px`;
+                    confetti.style.color = color;
+                    confetti.style.animationDuration = `${animationDuration}s`;
+                    confetti.style.animationDelay = `${delay}s`;
+                    confetti.style.transform = `rotate(${rotation}deg)`;
+                    
+                    container.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, animationDuration * 1000);
+                }
+            }
+
+            // Create falling flowers effect
+            function createFallingFlowers(count) {
+                const container = document.getElementById('falling-flowers-container');
+                const flowers = ['🌸', '🌺', '🌼', '🌻', '🌹', '🌷', '💮', '🏵️'];
+                const colors = ['#ffb6c1', '#ffc0cb', '#ffd1dc', '#e6e6fa', '#b0e0e6', '#f8c8dc'];
+                
+                for (let i = 0; i < count; i++) {
+                    const flower = document.createElement('div');
+                    flower.classList.add('falling-flower');
+                    flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+                    
+                    const size = Math.random() * 30 + 20;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    const left = Math.random() * 100;
+                    const animationDuration = Math.random() * 8 + 5;
+                    const delay = Math.random() * 5;
+                    const rotation = Math.random() * 360;
+                    
+                    flower.style.left = `${left}vw`;
+                    flower.style.fontSize = `${size}px`;
+                    flower.style.color = color;
+                    flower.style.animationDuration = `${animationDuration}s`;
+                    flower.style.animationDelay = `${delay}s`;
+                    flower.style.transform = `rotate(${rotation}deg)`;
+                    
+                    container.appendChild(flower);
+                    
+                    setTimeout(() => {
+                        flower.remove();
+                    }, animationDuration * 1000);
+                }
+            }
+
+            // Auto-create falling flowers
+            function autoCreateFlowers() {
+                if (Math.random() > 0.7) {
+                    createFallingFlowers(3);
+                }
+                setTimeout(autoCreateFlowers, 5000);
+            }
+            autoCreateFlowers();
+
+            // Auto-create some confetti occasionally
+            function autoCreateConfetti() {
+                if (Math.random() > 0.8) {
+                    createConfetti(5);
+                }
+                setTimeout(autoCreateConfetti, 8000);
+            }
+            autoCreateConfetti();
+
+            // Add confetti effect to clicks
+            document.addEventListener('click', function(e) {
+                if (e.target.tagName.toLowerCase() !== 'button' && 
+                    e.target.id !== 'mobile-menu-button' &&
+                    !e.target.closest('#terminal-output')) {
+                    createConfetti(3);
+                    if (Math.random() > 0.5) {
+                        createFallingFlowers(1);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
