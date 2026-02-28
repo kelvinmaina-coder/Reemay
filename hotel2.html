@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Management System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+  <!-- Navbar -->
+  <nav class="bg-blue-600 text-white p-4 shadow-lg">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold">🏨 Grand Horizon</h1>
+      <div class="flex space-x-4">
+        <button id="loginBtn" class="hover:bg-blue-700 px-4 py-2 rounded">Login</button>
+        <button id="registerBtn" class="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded">Register</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="bg-[url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center h-96 flex items-center">
+    <div class="container mx-auto text-center bg-black bg-opacity-50 p-8 rounded-lg">
+      <h1 class="text-4xl font-bold text-white mb-4">Luxury Awaits You</h1>
+      <p class="text-xl text-white mb-6">Book your stay, order gourmet food, and enjoy premium services.</p>
+      <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-lg">Explore Rooms</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto py-8 px-4">
+    <!-- Room Booking Section -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold mb-6 text-gray-800">Available Rooms</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Room Card 1 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Deluxe Room" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">Deluxe Room</h3>
+            <p class="text-gray-600 mb-4">Spacious room with ocean view and king-sized bed.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-2xl font-bold">$199<small class="text-sm text-gray-500">/night</small></span>
+              <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Book Now</button>
+            </div>
+          </div>
+        </div>
+        <!-- Room Card 2 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Executive Suite" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">Executive Suite</h3>
+            <p class="text-gray-600 mb-4">Luxury suite with private balcony and jacuzzi.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-2xl font-bold">$349<small class="text-sm text-gray-500">/night</small></span>
+              <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Book Now</button>
+            </div>
+          </div>
+        </div>
+        <!-- Room Card 3 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1566669437687-7040a6926753?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Family Room" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">Family Room</h3>
+            <p class="text-gray-600 mb-4">Perfect for families with two queen beds.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-2xl font-bold">$279<small class="text-sm text-gray-500">/night</small></span>
+              <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Book Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold mb-6 text-gray-800">Our Services</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Food Ordering -->
+        <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+          <div class="bg-yellow-100 p-4 rounded-full mb-4">
+            <i class="fas fa-utensils text-yellow-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Room Service</h3>
+          <p class="text-gray-600 mb-4">Order gourmet meals directly to your room.</p>
+          <button class="mt-auto bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">View Menu</button>
+        </div>
+        <!-- Transport -->
+        <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+          <div class="bg-blue-100 p-4 rounded-full mb-4">
+            <i class="fas fa-car text-blue-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Transport</h3>
+          <p class="text-gray-600 mb-4">Airport pickup/drop-off and local travel.</p>
+          <button class="mt-auto bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Request Ride</button>
+        </div>
+        <!-- Activities -->
+        <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+          <div class="bg-purple-100 p-4 rounded-full mb-4">
+            <i class="fas fa-swimming-pool text-purple-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Swimming Pool</h3>
+          <p class="text-gray-600 mb-4">Reserve private swimming sessions.</p>
+          <button class="mt-auto bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded">Book Session</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Login Modal (Hidden by Default) -->
+  <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-8 rounded-lg w-full max-w-md">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold">Login</h2>
+        <button id="closeLoginModal" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <form>
+        <div class="mb-4">
+          <label class="block text-gray-700 mb-2" for="email">Email</label>
+          <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+        </div>
+        <div class="mb-6">
+          <label class="block text-gray-700 mb-2" for="password">Password</label>
+          <input type="password" id="password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+        </div>
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">Login</button>
+      </form>
+      <p class="mt-4 text-center text-gray-600">Don't have an account? <a href="#" class="text-blue-600 hover:underline" id="switchToRegister">Register</a></p>
+    </div>
+  </div>
+
+  <!-- Register Modal (Hidden by Default) -->
+  <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-8 rounded-lg w-full max-w-md">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold">Register</h2>
+        <button id="closeRegisterModal" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <form>
+        <div class="mb-4">
+          <label class="block text-gray-700 mb-2" for="name">Full Name</label>
+          <input type="text" id="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700 mb-2" for="regEmail">Email</label>
+          <input type="email" id="regEmail" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+        </div>
+        <div class="mb-6">
+          <label class="block text-gray-700 mb-2" for="regPassword">Password</label>
+          <input type="password" id="regPassword" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+        </div>
+        <button type="submit" class="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-lg">Register</button>
+      </form>
+      <p class="mt-4 text-center text-gray-600">Already have an account? <a href="#" class="text-blue-600 hover:underline" id="switchToLogin">Login</a></p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Grand Horizon</h3>
+          <p class="text-gray-400">Luxury redefined. Comfort guaranteed.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white">Home</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white">Rooms</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white">Services</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Admin</h3>
+          <a href="/admin-dashboard.html" class="inline-block bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">Admin Dashboard</a>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+        <p>© 2023 Grand Horizon Hotel. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Modal Toggle Logic
+    const loginBtn = document.getElementById('loginBtn');
+    const registerBtn = document.getElementById('registerBtn');
+    const loginModal = document.getElementById('loginModal');
+    const registerModal = document.getElementById('registerModal');
+    const closeLoginModal = document.getElementById('closeLoginModal');
+    const closeRegisterModal = document.getElementById('closeRegisterModal');
+    const switchToRegister = document.getElementById('switchToRegister');
+    const switchToLogin = document.getElementById('switchToLogin');
+
+    loginBtn.addEventListener('click', () => {
+      loginModal.classList.remove('hidden');
+    });
+
+    registerBtn.addEventListener('click', () => {
+      registerModal.classList.remove('hidden');
+    });
+
+    closeLoginModal.addEventListener('click', () => {
+      loginModal.classList.add('hidden');
+    });
+
+    closeRegisterModal.addEventListener('click', () => {
+      registerModal.classList.add('hidden');
+    });
+
+    switchToRegister.addEventListener('click', (e) => {
+      e.preventDefault();
+      loginModal.classList.add('hidden');
+      registerModal.classList.remove('hidden');
+    });
+
+    switchToLogin.addEventListener('click', (e) => {
+      e.preventDefault();
+      registerModal.classList.add('hidden');
+      loginModal.classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>

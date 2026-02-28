@@ -1,0 +1,2513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>🌸 Reemay's Enchanted Paradise - COMPLETE EDITION 🌸</title>
+    
+    <!-- Styles & Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* ===== COMPLETE STYLES - ALL ORIGINAL STYLES PRESERVED ===== */
+        :root {
+            --pink: #ff4d8d;
+            --blue: #4da6ff;
+            --purple: #b366ff;
+            --yellow: #ffcc4d;
+            --teal: #2dd4bf;
+            --parrot-green: #50fa7b;
+            --parrot-blue: #8be9fd;
+            --bg-primary: #fff8fb;
+            --bg-secondary: #f0f8ff;
+            --text-primary: #2d3748;
+            --text-secondary: #4a5568;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --shadow: rgba(0,0,0,0.1);
+            --success: #4ade80;
+            --error: #ff6b6b;
+        }
+
+        /* Dark theme variables */
+        [data-theme="dark"] {
+            --pink: #ff99bb;
+            --blue: #99ccff;
+            --purple: #cc99ff;
+            --yellow: #ffee99;
+            --teal: #99ffee;
+            --parrot-green: #50fa7b;
+            --parrot-blue: #8be9fd;
+            --bg-primary: #1a1625;
+            --bg-secondary: #2a1f3a;
+            --text-primary: #f3e8ff;
+            --text-secondary: #d4b8ff;
+            --card-bg: rgba(40, 30, 50, 0.98);
+            --shadow: rgba(255, 200, 255, 0.2);
+        }
+
+        /* ===== GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            scroll-behavior: smooth;
+            background: radial-gradient(circle at center, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            font-family: 'Nunito', 'Comic Sans MS', cursive, sans-serif;
+            overflow-x: hidden;
+            color: var(--text-primary);
+            transition: background 0.5s ease, color 0.3s ease;
+            min-height: 100vh;
+        }
+
+        /* ===== BUTTERFLY CURSOR ===== */
+        .butterfly {
+            position: fixed;
+            font-size: 32px;
+            z-index: 9999;
+            pointer-events: none;
+            filter: drop-shadow(0 0 10px rgba(255, 77, 141, 0.5));
+            transition: transform 0.1s ease;
+        }
+
+        /* ===== THEME TOGGLE ===== */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 30px;
+            right: 200px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            color: white;
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: all 0.3s ease;
+        }
+        .theme-toggle-btn:hover {
+            transform: scale(1.1) rotate(180deg);
+        }
+
+        /* ===== MUSIC PLAYER SIDEBAR - WITH VISIBLE UPLOAD FEATURE ===== */
+        .music-sidebar-toggle {
+            position: fixed;
+            left: 20px;
+            top: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            color: white;
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: all 0.3s ease;
+            animation: pulse-music 2s infinite;
+        }
+        @keyframes pulse-music {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .music-sidebar-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .music-player-sidebar {
+            position: fixed;
+            left: 0;
+            top: 80px;
+            width: 380px;
+            max-height: calc(100vh - 100px);
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-right: 3px solid var(--pink);
+            border-radius: 0 20px 20px 0;
+            z-index: 999;
+            overflow-y: auto;
+            padding: 20px;
+            box-shadow: 5px 5px 20px var(--shadow);
+            transform: translateX(-400px);
+            transition: transform 0.3s ease;
+        }
+        .music-player-sidebar.open {
+            transform: translateX(0);
+        }
+
+        /* ===== VISIBLE UPLOAD SECTION - EXACTLY AS IN THE DIAGRAM ===== */
+        .music-header {
+            color: var(--pink);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .music-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+        .music-tab {
+            flex: 1;
+            padding: 10px;
+            background: rgba(255, 77, 141, 0.1);
+            border: 2px solid var(--pink);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .music-tab.active {
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            color: white;
+        }
+
+        /* Upload Section - Highlighted */
+        .upload-section {
+            background: rgba(255, 77, 141, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 2px dashed var(--pink);
+            animation: glow-upload 2s infinite;
+        }
+        @keyframes glow-upload {
+            0% { box-shadow: 0 0 5px var(--pink); }
+            50% { box-shadow: 0 0 20px var(--pink); }
+            100% { box-shadow: 0 0 5px var(--pink); }
+        }
+
+        .upload-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 2px solid var(--pink);
+            border-radius: 8px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        .upload-btn-big {
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin: 8px 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .upload-btn-big:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px var(--pink);
+        }
+
+        .upload-btn-big i {
+            font-size: 1.3rem;
+        }
+
+        .file-info {
+            text-align: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255, 77, 141, 0.05);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        /* Playlist Section */
+        .playlist-header {
+            color: var(--pink);
+            margin: 20px 0 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .playlist-item {
+            background: linear-gradient(135deg, rgba(255, 77, 141, 0.1), rgba(77, 166, 255, 0.1));
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid var(--pink);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .playlist-item:hover {
+            background: linear-gradient(135deg, rgba(255, 77, 141, 0.2), rgba(77, 166, 255, 0.2));
+            transform: translateX(5px);
+        }
+        .playlist-item.playing {
+            background: linear-gradient(135deg, rgba(255, 77, 141, 0.3), rgba(77, 166, 255, 0.3));
+            border-left-color: var(--blue);
+        }
+        .delete-song-btn {
+            background: var(--error);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        .delete-song-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Online Music Section */
+        .online-music-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .online-music-item {
+            background: rgba(255, 77, 141, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .online-music-item:hover {
+            background: rgba(255, 77, 141, 0.3);
+            transform: scale(1.05);
+        }
+        .online-music-item i {
+            font-size: 2rem;
+            color: var(--pink);
+            margin-bottom: 5px;
+        }
+
+        /* ===== CHAT SYSTEM ===== */
+        .chat-system-enhanced {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 400px;
+            height: 550px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px var(--shadow);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 2px solid var(--pink);
+            transform: scale(0.8) translateY(50px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        .chat-system-enhanced.open {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+        .chat-header-enhanced {
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-messages-enhanced {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .chat-message-enhanced {
+            padding: 12px 15px;
+            border-radius: 15px;
+            max-width: 80%;
+            word-wrap: break-word;
+            animation: messageBounce 0.4s ease;
+        }
+        @keyframes messageBounce {
+            0% { transform: scale(0.8) translateY(10px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        .message-own {
+            background: linear-gradient(135deg, var(--pink), var(--blue));
+            color: white;
+            align-self: flex-end;
+        }
+        .message-other {
+            background: rgba(200, 200, 200, 0.3);
+            color: var(--text-primary);
+            align-self: flex-start;
+        }
+        .message-system {
+            background: rgba(255, 200, 100, 0.2);
+            color: var(--text-primary);
+            align-self: center;
+            font-style: italic;
+        }
+        .chat-input-enhanced {
+            padding: 15px;
+            background: var(--bg-primary);
+            border-top: 1px solid var(--pink);
+            display: flex;
+            gap: 10px;
+        }
+        .chat-input-enhanced input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid var(--pink);
+            border-radius: 20px;
+            outline: none;
+            background: var(--card-bg);
+            color: var(--text-primary);
+        }
+        .chat-input-enhanced button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .chat-input-enhanced button:hover {
+            transform: scale(1.1) rotate(15deg);
+        }
+        .online-indicator-enhanced {
+            display: flex;
+            gap: 5px;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4ade80;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .chat-button-enhanced {
+            position: fixed;
+            bottom: 30px;
+            right: 100px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            color: white;
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: all 0.3s ease;
+        }
+        .chat-button-enhanced:hover {
+            transform: scale(1.1);
+        }
+        .chat-badge-enhanced {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff0000;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            animation: badgePulse 1s infinite;
+        }
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* ===== CONNECTION STATUS ===== */
+        .connection-status-indicator {
+            position: fixed;
+            top: 30px;
+            right: 100px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: #4ade80;
+            color: white;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            z-index: 998;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+        .connection-status-indicator.offline {
+            background: #ff5555;
+        }
+        .connection-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: white;
+            animation: pulse 1s infinite;
+        }
+
+        /* ===== CONSTELLATION ===== */
+        .constellation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        /* ===== GARDEN ZONE ===== */
+        .garden-zone {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            z-index: 2;
+            background: linear-gradient(to top, rgba(120, 204, 120, 0.3), transparent);
+            pointer-events: none;
+        }
+        .garden-flower {
+            position: absolute;
+            bottom: 0;
+            font-size: 24px;
+            transform-origin: bottom center;
+            animation: flower-grow 5s ease-out forwards;
+            filter: drop-shadow(0 2px 5px var(--shadow));
+        }
+        @keyframes flower-grow {
+            0% { transform: scale(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: scale(1) translateY(-20px); }
+        }
+
+        /* ===== FIREFLY ===== */
+        .firefly {
+            position: fixed;
+            font-size: 8px;
+            color: #fffacd;
+            filter: drop-shadow(0 0 5px yellow);
+            animation: firefly 8s infinite ease-in-out;
+            z-index: 3;
+            pointer-events: none;
+        }
+        @keyframes firefly {
+            0%, 100% { transform: translate(0, 0); opacity: 0; }
+            10% { opacity: 1; }
+            50% { transform: translate(50px, -30px); }
+            80% { opacity: 0.8; }
+        }
+
+        /* ===== WEATHER WIDGET ===== */
+        .weather-widget {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 5px 15px var(--shadow);
+            z-index: 99;
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--pink);
+            color: var(--text-primary);
+        }
+
+        /* ===== DIGITAL CLOCK ===== */
+        .digital-clock {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            color: var(--pink);
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+
+        /* ===== PHOTO GALLERY ===== */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            padding: 20px;
+        }
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px var(--shadow);
+            aspect-ratio: 1;
+        }
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--error);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border: none;
+        }
+        .gallery-item:hover .delete-btn {
+            opacity: 1;
+        }
+
+        /* ===== MOOD TRACKER ===== */
+        .mood-tracker {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+        .mood-option {
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .mood-option:hover {
+            transform: scale(1.2);
+        }
+
+        /* ===== DAILY QUOTE ===== */
+        .daily-quote {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(240,240,255,0.9));
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px var(--shadow);
+            border-left: 5px solid var(--pink);
+            color: var(--text-primary);
+        }
+
+        /* ===== FLOATING ACTION BUTTON ===== */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px var(--shadow);
+            cursor: pointer;
+            z-index: 99;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .fab:hover {
+            transform: scale(1.1) rotate(15deg);
+        }
+
+        /* ===== PROGRESS TRACKER ===== */
+        .progress-tracker {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+        .progress-bar {
+            height: 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--pink), var(--purple));
+            transition: width 0.5s ease;
+        }
+
+        /* ===== TERMINAL ===== */
+        .terminal {
+            background: rgba(40, 42, 54, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            font-family: 'Courier New', monospace;
+            color: #f8f8f2;
+            overflow: hidden;
+        }
+        .terminal-header {
+            background: rgba(68, 71, 90, 0.8);
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+        }
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .terminal-btn.red { background: #ff5f56; }
+        .terminal-btn.yellow { background: #ffbd2e; }
+        .terminal-btn.green { background: #27c93f; }
+        .terminal-body {
+            padding: 15px;
+            height: 200px;
+            overflow-y: auto;
+        }
+        .terminal-command { color: var(--parrot-green); }
+        .terminal-path { color: var(--parrot-blue); }
+
+        /* ===== HACKER TEXT ===== */
+        .hacker-text {
+            font-family: 'Courier New', monospace;
+            background: rgba(0,0,0,0.7);
+            color: #0f0;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #0f0;
+            text-shadow: 0 0 5px #0f0;
+            white-space: pre-line;
+        }
+
+        /* ===== FLIP CARDS ===== */
+        .flip-card {
+            perspective: 1000px;
+            height: 300px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 20px var(--shadow);
+            color: var(--text-primary);
+        }
+        .flip-card-front {
+            background: var(--card-bg);
+            border: 2px solid var(--pink);
+        }
+        .flip-card-back {
+            background: var(--card-bg);
+            border: 2px solid var(--blue);
+            transform: rotateY(180deg);
+        }
+
+        /* ===== MEMORY BOOK ===== */
+        .memory-book {
+            background: var(--card-bg);
+            padding: 20px;
+            box-shadow: 0 10px 30px var(--shadow);
+            transform: rotate(-2deg);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            color: var(--text-primary);
+            border-radius: 15px;
+        }
+        .memory-book:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, var(--pink), var(--blue));
+        }
+        .memory-book:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        /* ===== PHOTO FRAME ===== */
+        .photo-frame {
+            border: 15px solid white;
+            box-shadow: 0 10px 30px var(--shadow);
+            transform: rotate(3deg);
+            transition: all 0.5s ease;
+            background: white;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .photo-frame:hover {
+            transform: rotate(0deg) scale(1.08);
+        }
+
+        /* ===== FLOATING HEARTS ===== */
+        .floating-heart {
+            position: fixed;
+            animation: float-heart 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 5px rgba(255,105,180,0.7));
+            z-index: 2;
+            font-size: 2rem;
+            pointer-events: none;
+        }
+        @keyframes float-heart {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* ===== GLOW EFFECT ===== */
+        .glow {
+            animation: glow-pulse 3s infinite alternate;
+        }
+        @keyframes glow-pulse {
+            from { filter: drop-shadow(0 0 5px rgba(255,105,180,0.5)); }
+            to { filter: drop-shadow(0 0 15px rgba(255,105,180,0.9)); }
+        }
+
+        /* ===== PARROT BUTTON ===== */
+        .parrot-btn {
+            background: linear-gradient(135deg, var(--parrot-green), var(--parrot-blue));
+            color: #282a36;
+            font-weight: bold;
+            border: none;
+            transition: all 0.3s;
+        }
+        .parrot-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(80, 250, 123, 0.3);
+        }
+
+        /* ===== LOVE METER ===== */
+        .love-meter {
+            height: 20px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #ff4d8d, #ff8fab, #ffb3c6);
+            box-shadow: inset 0 0 5px var(--shadow);
+            overflow: hidden;
+        }
+        .love-meter-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff4d8d, #ff006e);
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        /* ===== DECODER RING ===== */
+        .decoder-ring {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #ff4d8d, #ff8fab, #ffb3c6, #ffccd5, 
+                #ffdddf, #ffccd5, #ffb3c6, #ff8fab, #ff4d8d
+            );
+            position: relative;
+            animation: spin 20s linear infinite;
+            box-shadow: 0 0 20px rgba(255,77,141,0.5);
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== FLOATING ISLAND ===== */
+        .floating-island {
+            animation: float-island 6s ease-in-out infinite;
+            transform-origin: center;
+        }
+        @keyframes float-island {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        /* ===== MUSIC NOTES ===== */
+        .music-note {
+            position: absolute;
+            animation: rise 2s ease-out forwards;
+            pointer-events: none;
+        }
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100px) scale(0.5); opacity: 0; }
+        }
+
+        /* ===== CONFETTI ===== */
+        .confetti {
+            position: fixed;
+            pointer-events: none;
+            animation: confetti-fall 3s linear forwards;
+            z-index: 9997;
+        }
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* ===== TOAST NOTIFICATION ===== */
+        .toast-notification {
+            position: fixed;
+            bottom: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 9999;
+            animation: toastSlide 0.3s ease;
+        }
+        @keyframes toastSlide {
+            from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+
+        /* ===== FALLING FLOWERS ===== */
+        .falling-flower {
+            position: fixed;
+            pointer-events: none;
+            animation: flower-fall 8s linear forwards;
+            z-index: 9998;
+            font-size: 24px;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.7));
+        }
+        @keyframes flower-fall {
+            0% { transform: translateY(-100px) rotate(0deg) scale(0.5); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg) scale(1); opacity: 0; }
+        }
+
+        /* ===== RAINBOW TEXT ===== */
+        .rainbow-text {
+            background: linear-gradient(90deg, 
+                var(--pink), 
+                var(--yellow), 
+                var(--blue), 
+                var(--purple), 
+                var(--teal),
+                var(--pink));
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: rainbow 8s ease infinite;
+        }
+        @keyframes rainbow {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
+        }
+
+        /* ===== CUSTOM SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #ffe6f2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--pink);
+            border-radius: 10px;
+            border: 2px solid #ffe6f2;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .photo-gallery {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            .music-player-sidebar {
+                width: 300px;
+            }
+            .chat-system-enhanced {
+                width: 300px;
+                right: 10px;
+                height: 500px;
+            }
+            .theme-toggle-btn {
+                right: 20px;
+                top: 100px;
+            }
+            .connection-status-indicator {
+                right: 20px;
+                top: 160px;
+            }
+            h1 { font-size: 2.5rem !important; }
+            h2 { font-size: 2rem !important; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== CONSTELLATION ===== -->
+    <div class="constellation" id="constellation"></div>
+
+    <!-- ===== GARDEN ZONE ===== -->
+    <div class="garden-zone" id="garden-zone"></div>
+
+    <!-- ===== BUTTERFLY CURSOR ===== -->
+    <div class="butterfly" id="butterfly">🦋</div>
+
+    <!-- ===== CONNECTION STATUS ===== -->
+    <div class="connection-status-indicator" id="connectionStatus">
+        <span class="connection-status-dot"></span>
+        <span id="connectionText">Connected</span>
+    </div>
+
+    <!-- ===== THEME TOGGLE ===== -->
+    <button class="theme-toggle-btn" id="themeToggle" title="Toggle Dark/Light Mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- ===== MUSIC SIDEBAR TOGGLE (PULSING BUTTON) ===== -->
+    <button class="music-sidebar-toggle" id="musicSidebarToggle" title="Open Music Player">
+        <i class="fas fa-music"></i>
+    </button>
+
+    <!-- ===== MUSIC PLAYER SIDEBAR - WITH VISIBLE UPLOAD SECTION ===== -->
+    <div class="music-player-sidebar" id="musicPlayerSidebar">
+        <!-- Header -->
+        <div class="music-header">
+            <i class="fas fa-compact-disc"></i> YOUR PLAYLIST
+        </div>
+        
+        <!-- Tabs -->
+        <div class="music-tabs">
+            <div class="music-tab active" onclick="switchMusicTab('local')" id="localTab">Local Storage</div>
+            <div class="music-tab" onclick="switchMusicTab('online')" id="onlineTab">Online Music</div>
+        </div>
+
+        <!-- Local Storage Upload Section - VISIBLE AND HIGHLIGHTED -->
+        <div id="localMusicSection">
+            <div class="upload-section">
+                <!-- Song Name Input -->
+                <input type="text" class="upload-input" id="songNameInput" placeholder="SONG NAME: [............]">
+                
+                <!-- Artist Name Input -->
+                <input type="text" class="upload-input" id="songArtistInput" placeholder="ARTIST NAME: [.........]">
+                
+                <!-- Hidden file input -->
+                <input type="file" id="musicFileInput" accept="audio/*" style="display: none;">
+                
+                <!-- CLICK TO UPLOAD Button -->
+                <button class="upload-btn-big" onclick="document.getElementById('musicFileInput').click()">
+                    <i class="fas fa-cloud-upload-alt"></i> ⬆️ CLICK TO UPLOAD (MP3 FILES)
+                </button>
+                
+                <!-- File info display -->
+                <div class="file-info" id="fileInfo">
+                    No file selected
+                </div>
+                
+                <!-- ADD TO PLAYLIST Button -->
+                <button class="upload-btn-big" onclick="addUploadedSong()">
+                    <i class="fas fa-plus"></i> ➕ ADD TO PLAYLIST
+                </button>
+            </div>
+        </div>
+
+        <!-- Online Music Section (Hidden by default) -->
+        <div id="onlineMusicSection" style="display: none;">
+            <div class="upload-section">
+                <select class="upload-input" id="musicCategory">
+                    <option value="all">All Categories</option>
+                    <option value="pop">Pop</option>
+                    <option value="rock">Rock</option>
+                    <option value="jazz">Jazz</option>
+                    <option value="classical">Classical</option>
+                    <option value="electronic">Electronic</option>
+                </select>
+                <input type="text" class="upload-input" id="musicSearch" placeholder="Search songs...">
+                <button class="upload-btn-big" onclick="searchOnlineMusic()">
+                    <i class="fas fa-search"></i> Search
+                </button>
+                <button class="upload-btn-big" onclick="loadFeaturedMusic()">
+                    <i class="fas fa-star"></i> Featured
+                </button>
+            </div>
+            <div id="onlineMusicGrid" class="online-music-grid">
+                <!-- Online music items will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Playlist Section -->
+        <div class="playlist-header">
+            <i class="fas fa-list"></i> YOUR PLAYLIST
+        </div>
+        <div id="playlistContainer" style="max-height: calc(100vh - 500px); overflow-y: auto;">
+            <p style="text-align: center; color: var(--text-secondary); padding: 20px;">
+                No songs yet. Add your first song! 🎵
+            </p>
+        </div>
+    </div>
+
+    <!-- ===== WEATHER WIDGET ===== -->
+    <div class="weather-widget animate__animated animate__fadeInRight">
+        <div class="flex items-center">
+            <div class="text-3xl mr-2">🌤️</div>
+            <div>
+                <div class="font-bold">Sunny Day</div>
+                <div class="text-sm">Perfect for smiling!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== DIGITAL CLOCK ===== -->
+    <div class="weather-widget animate__animated animate__fadeInRight" style="top: 160px;">
+        <div class="digital-clock" id="digital-clock"></div>
+    </div>
+
+    <!-- ===== FALLING FLOWERS CONTAINER ===== -->
+    <div id="falling-flowers-container"></div>
+
+    <!-- ===== FLOATING HEARTS ===== -->
+    <div class="floating-heart" style="top: 80px; left: 10px; animation-delay: 0.3s;">❤️</div>
+    <div class="floating-heart" style="top: 200px; right: 50px; animation-delay: 1s;">💖</div>
+    <div class="floating-heart" style="bottom: 100px; left: 20%; animation-delay: 2s;">💕</div>
+    <div class="floating-heart" style="bottom: 200px; right: 15%; animation-delay: 0.5s;">💗</div>
+
+    <!-- ===== ENHANCED CHAT BUTTON ===== -->
+    <button class="chat-button-enhanced" id="chatButtonEnhanced">
+        <i class="fas fa-comments"></i>
+        <div class="chat-badge-enhanced" id="chatBadgeEnhanced">0</div>
+    </button>
+
+    <!-- ===== ENHANCED CHAT SYSTEM ===== -->
+    <div class="chat-system-enhanced" id="chatSystemEnhanced">
+        <div class="chat-header-enhanced">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-robot"></i>
+                <span>Paradise Chat</span>
+                <div class="online-indicator-enhanced">
+                    <span class="status-dot"></span>
+                    <span id="onlineCountEnhanced" style="font-size: 0.85rem;">5 online</span>
+                </div>
+            </div>
+            <button id="closeChatSystemEnhanced" style="background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-messages-enhanced" id="chatMessagesEnhanced">
+            <div class="chat-message-enhanced message-system">
+                🌸 Welcome to Paradise Chat! Everyone here loves Reemay!
+            </div>
+        </div>
+        <div class="chat-input-enhanced">
+            <input type="text" id="chatInputEnhanced" placeholder="Type your message..." autocomplete="off">
+            <button id="sendChatEnhanced">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== FLOATING ACTION BUTTON ===== -->
+    <div class="fab" id="magic-fab">
+        <i class="fas fa-magic"></i>
+    </div>
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav class="fixed w-full bg-white bg-opacity-90 shadow-md z-50 backdrop-blur-sm" style="background: var(--card-bg); color: var(--text-primary);">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-20">
+                <div class="text-2xl font-bold rainbow-text flex items-center">
+                    <i class="fas fa-heart mr-2 animate-pulse"></i>
+                    Reemay's Paradise
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-pink-600 hover:text-blue-600 transition font-bold flex items-center group">
+                        <i class="fas fa-home mr-2 group-hover:animate-bounce"></i> Home
+                    </a>
+                    <a href="#magic" class="text-blue-600 hover:text-purple-600 transition font-bold flex items-center group">
+                        <i class="fas fa-sparkles mr-2 group-hover:animate-spin"></i> Magic
+                    </a>
+                    <a href="#memories" class="text-purple-600 hover:text-pink-600 transition font-bold flex items-center group">
+                        <i class="fas fa-book mr-2 group-hover:animate-pulse"></i> Memories
+                    </a>
+                    <a href="#tech" class="text-green-500 hover:text-blue-500 transition font-bold flex items-center group">
+                        <i class="fas fa-code mr-2 group-hover:animate-pulse"></i> Tech Love
+                    </a>
+                    <a href="#joy" class="text-yellow-600 hover:text-blue-600 transition font-bold flex items-center group">
+                        <i class="fas fa-smile-beam mr-2 group-hover:animate-bounce"></i> Joy
+                    </a>
+                    <a href="#music" class="text-teal-600 hover:text-pink-600 transition font-bold flex items-center group">
+                        <i class="fas fa-music mr-2 group-hover:animate-spin"></i> Music
+                    </a>
+                </div>
+                <button id="mobile-menu-button" class="md:hidden text-pink-600">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-4 shadow-lg" style="background: var(--card-bg);">
+            <a href="#home" class="block py-3 text-pink-600 font-bold border-b border-pink-100 flex items-center">🏠 Home</a>
+            <a href="#magic" class="block py-3 text-blue-600 font-bold border-b border-blue-100 flex items-center">✨ Magic</a>
+            <a href="#memories" class="block py-3 text-purple-600 font-bold border-b border-purple-100 flex items-center">📚 Memories</a>
+            <a href="#tech" class="block py-3 text-green-500 font-bold border-b border-green-100 flex items-center">💻 Tech Love</a>
+            <a href="#joy" class="block py-3 text-yellow-600 font-bold border-b border-yellow-100 flex items-center">😊 Joy</a>
+            <a href="#music" class="block py-3 text-teal-600 font-bold flex items-center">🎵 Music</a>
+        </div>
+    </nav>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section id="home" class="pt-28 pb-16 md:pt-36 md:pb-24 px-4 max-w-7xl mx-auto min-h-screen flex items-center relative overflow-hidden">
+        <div class="absolute -z-10 w-full h-full overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full opacity-10">
+                <div class="text-9xl animate-spin-slow" style="animation-duration: 40s;">🌸</div>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row items-center w-full">
+            <div class="md:w-1/2 mb-10 md:mb-0 animate__animated animate__fadeInLeft">
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-6 rainbow-text">
+                    Welcome to Your Paradise! 🌸
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 font-medium" style="color: var(--text-primary);">
+                    A digital garden full of beauty, growing with love just for you, Reemay.
+                </p>
+                
+                <!-- Love Meter -->
+                <div class="mb-8">
+                    <div class="flex justify-between mb-2">
+                        <span style="color: var(--pink); font-weight: bold;">How Much You're Loved:</span>
+                        <span id="love-percent" style="color: var(--pink); font-weight: bold;">100%</span>
+                    </div>
+                    <div class="love-meter">
+                        <div id="love-meter-fill" class="love-meter-fill" style="width: 100%"></div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap gap-4">
+                    <button id="magic-button" class="bg-gradient-to-r from-pink-500 to-blue-500 hover:from-pink-600 hover:to-blue-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex items-center">
+                        <i class="fas fa-magic mr-3 animate-spin"></i> Create Magic!
+                    </button>
+                    
+                    <button id="secret-btn" class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex items-center">
+                        <i class="fas fa-lock mr-3"></i> Secret Message
+                    </button>
+                </div>
+            </div>
+            
+            <div class="md:w-1/2 animate__animated animate__fadeInRight">
+                <div class="relative floating-island">
+                    <div class="photo-frame w-72 h-72 mx-auto overflow-hidden bg-gradient-to-br from-pink-200 to-blue-200">
+                        <img src="./melany.jpg" alt="Reemay" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="absolute -bottom-5 -right-5 bg-white rounded-full p-2 shadow-lg border-4 border-yellow-300 transform hover:rotate-12 transition">
+                        <div class="bg-gradient-to-r from-yellow-400 to-pink-500 text-white rounded-full w-20 h-20 flex items-center justify-center text-3xl glow">
+                            ✨
+                        </div>
+                    </div>
+                    <div class="absolute -top-5 -left-5 bg-white rounded-full p-2 shadow-lg border-4 border-blue-300 transform hover:-rotate-12 transition">
+                        <div class="bg-gradient-to-r from-blue-400 to-teal-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl glow">
+                            💖
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MAGIC SECTION ===== -->
+    <section id="magic" class="py-20 px-4" style="background: var(--card-bg); color: var(--text-primary);">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-16 rainbow-text">
+                Reemay's Magical Qualities ✨
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="text-6xl mb-4 animate-bounce">🌟</div>
+                            <h3 class="text-2xl font-bold">Radiant Energy</h3>
+                            <p class="mt-2">Click to reveal</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <p>Your smile could power cities! You light up every room.</p>
+                            <div class="mt-4 text-4xl">💫</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="text-6xl mb-4 animate-bounce">💖</div>
+                            <h3 class="text-2xl font-bold">Golden Heart</h3>
+                            <p class="mt-2">Click to reveal</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <p>Your kindness makes everyone feel special.</p>
+                            <div class="mt-4 text-4xl">🌈</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="text-6xl mb-4 animate-bounce">🎨</div>
+                            <h3 class="text-2xl font-bold">Creative Genius</h3>
+                            <p class="mt-2">Click to reveal</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <p>Your imagination turns ordinary into extraordinary.</p>
+                            <div class="mt-4 text-4xl">🎨</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daily Quote Section -->
+            <div class="mt-16 max-w-3xl mx-auto">
+                <div class="daily-quote animate__animated animate__fadeInUp">
+                    <h3 class="text-xl font-bold text-purple-700 mb-2">Today's Magical Quote</h3>
+                    <p id="daily-quote-text" class="text-gray-800 italic">"You are the magic you wish to see in the world."</p>
+                    <p id="quote-author" class="text-right text-gray-600 mt-2">- Blossom Fairy</p>
+                    <button id="new-quote-btn" class="mt-4 bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full text-sm transition">
+                        <i class="fas fa-redo mr-1"></i> New Quote
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TECH LOVE SECTION ===== -->
+    <section id="tech" class="py-20 px-4 bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-16">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">Tech Love</span> 
+                <span class="text-pink-400">Terminal</span> 💻
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-btn red"></div>
+                        <div class="terminal-btn yellow"></div>
+                        <div class="terminal-btn green"></div>
+                        <div class="ml-2 text-sm">reemay-paradise -- bash</div>
+                    </div>
+                    <div class="terminal-body" id="terminal-output">
+                        <div class="mb-2"><span class="terminal-path">user@reemay:</span> <span class="terminal-command">./start_love_engine.sh</span></div>
+                        <div class="mb-2">Initializing Reemay Appreciation Module...</div>
+                        <div class="mb-2">Love Engine Started!</div>
+                        <div class="mb-2"><span class="terminal-path">user@reemay:</span> <span class="terminal-command">./connect_to_backend.sh</span></div>
+                        <div class="mb-2">Backend: CONNECTED ✓</div>
+                        <div class="mb-2">Real-time Chat: ENABLED ✓</div>
+                        <div class="mb-2">Data Sync: ACTIVE ✓</div>
+                        <div class="mb-2"><span class="terminal-path">user@reemay:</span> <span class="terminal-command" id="terminal-cursor">_</span></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-3xl font-bold mb-6 text-pink-300">Coded With Love 💖</h3>
+                    <p class="text-lg mb-6 text-gray-300">
+                        Powered by heartbeats, butterflies, and magic. Real-time connection with backend database!
+                    </p>
+                    <div class="mb-8">
+                        <div class="hacker-text mb-4" id="hacker-text">
+                            > BACKEND: CONNECTED<br>
+                            > REAL-TIME CHAT: ENABLED<br>
+                            > MUSIC SYNC: ACTIVE<br>
+                            > DATABASE: OPERATIONAL
+                        </div>
+                        <button id="hack-btn" class="parrot-btn px-6 py-3 rounded-lg font-bold flex items-center">
+                            <i class="fas fa-terminal mr-2"></i> Run Love Scan
+                        </button>
+                    </div>
+
+                    <!-- Progress Tracker -->
+                    <div class="progress-tracker" style="background: rgba(255,255,255,0.1);">
+                        <h4 class="text-xl font-bold mb-4 text-pink-300">Happiness Progress</h4>
+                        <div class="mb-2">
+                            <div class="flex justify-between mb-1">
+                                <span>Today's Joy Level</span>
+                                <span id="joy-percent">75%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div id="joy-progress" class="progress-fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <button id="boost-joy-btn" class="mt-4 bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white px-4 py-2 rounded-full text-sm transition">
+                            <i class="fas fa-smile-beam mr-1"></i> Boost My Joy
+                        </button>
+                    </div>
+
+                    <!-- Decoder Ring -->
+                    <div class="text-center mt-8">
+                        <h4 class="text-xl font-bold mb-4 text-blue-300">Secret Message Decoder</h4>
+                        <div class="flex justify-center mb-4">
+                            <div class="decoder-ring flex items-center justify-center">
+                                <div class="bg-gray-900 rounded-full w-3/4 h-3/4 flex items-center justify-center text-white font-mono text-sm text-center p-4">
+                                    Turn me to decode<br>hidden messages
+                                </div>
+                            </div>
+                        </div>
+                        <button id="decode-btn" class="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-6 py-3 rounded-lg font-bold">
+                            <i class="fas fa-unlock-alt mr-2"></i> Decode Love Message
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MEMORIES SECTION ===== -->
+    <section id="memories" class="py-20 px-4 relative overflow-hidden" style="background: linear-gradient(to right, var(--bg-primary), var(--bg-secondary));">
+        <div class="absolute top-0 left-0 w-full h-full -z-10 overflow-hidden">
+            <div class="absolute top-20 left-20 text-pink-200 text-9xl opacity-10" style="animation: float 15s ease-in-out infinite;">✿</div>
+            <div class="absolute bottom-20 right-20 text-blue-200 text-9xl opacity-10" style="animation: float 18s ease-in-out infinite 2s;">❀</div>
+        </div>
+
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-16 rainbow-text">
+                Memory Garden 🌼
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="memory-book">
+                    <div class="text-4xl text-center mb-4 animate-bounce">📸</div>
+                    <h3 class="text-xl font-bold text-center mb-3">Our First Meet</h3>
+                    <p class="text-center mb-4">Remember when we first met? The world became brighter that day!</p>
+                    <div class="photo-frame w-full h-48 overflow-hidden">
+                        <img src="./3melany.jpg" alt="Memory" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="mt-4 text-center text-sm text-gray-500">
+                        <i class="fas fa-heart text-pink-400"></i> Forever in my heart
+                    </div>
+                </div>
+                
+                <div class="memory-book">
+                    <div class="text-4xl text-center mb-4 animate-bounce">🎂</div>
+                    <h3 class="text-xl font-bold text-center mb-3">Birthday Celebration</h3>
+                    <p class="text-center mb-4">That amazing day when we celebrated you - the star of the show!</p>
+                    <div class="photo-frame w-full h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Memory" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="mt-4 text-center text-sm text-gray-500">
+                        <i class="fas fa-heart text-blue-400"></i> Eternal happiness
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Photo Gallery with Upload & Delete -->
+            <div class="mt-12">
+                <h3 class="text-3xl font-bold text-center mb-8 rainbow-text">Precious Moments Gallery</h3>
+                
+                <!-- Upload Area -->
+                <div class="upload-area" style="background: var(--card-bg); border: 3px dashed var(--pink); border-radius: 20px; padding: 30px; text-align: center; margin-bottom: 20px; cursor: pointer;" onclick="document.getElementById('photoInput').click()">
+                    <i class="fas fa-cloud-upload-alt text-5xl mb-3" style="color: var(--pink);"></i>
+                    <h3 class="text-xl font-bold mb-2">Click or Drag Photos Here</h3>
+                    <p class="mb-2">Upload your precious memories</p>
+                    <input type="file" id="photoInput" accept="image/*" multiple style="display: none;">
+                </div>
+
+                <div class="photo-gallery" id="photoGallery">
+                    <div class="gallery-item" data-id="1">
+                        <img src="./white2.jpg" alt="Memory">
+                        <button class="delete-btn" onclick="deletePhoto(this)"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <div class="gallery-item" data-id="2">
+                        <img src="red2.jpg" alt="Memory">
+                        <button class="delete-btn" onclick="deletePhoto(this)"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <div class="gallery-item" data-id="3">
+                        <img src="brown2.jpg" alt="Memory">
+                        <button class="delete-btn" onclick="deletePhoto(this)"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <div class="gallery-item" data-id="4">
+                        <img src="pink.jpg" alt="Memory">
+                        <button class="delete-btn" onclick="deletePhoto(this)"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== JOY GENERATOR ===== -->
+    <section id="joy" class="py-20 px-4 min-h-screen" style="background: var(--card-bg);">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-8 rainbow-text">
+                Happiness Generator 🌸
+            </h2>
+            <p class="text-xl mb-12 font-medium" style="color: var(--text-primary);">
+                Custom joy designed just for Reemay!
+            </p>
+            
+            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-2xl mb-12 border-4 border-pink-300 relative overflow-hidden" style="background: var(--card-bg);">
+                <div id="compliment-display" class="text-2xl md:text-3xl font-bold min-h-48 flex items-center justify-center rainbow-text">
+                    Ready for your daily dose of happiness?
+                </div>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-4">
+                <button id="compliment-button" class="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg transition transform hover:scale-105 flex items-center">
+                    <i class="fas fa-gift mr-2"></i> Get Happy Boost
+                </button>
+                
+                <button id="confetti-button" class="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg transition transform hover:scale-105 flex items-center">
+                    <i class="fas fa-sparkles mr-2"></i> Confetti Blast!
+                </button>
+
+                <button id="flower-storm-btn" class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg transition transform hover:scale-105 flex items-center">
+                    <i class="fas fa-spa mr-2"></i> Flower Storm!
+                </button>
+            </div>
+            
+            <!-- Virtual Hugs -->
+            <div class="mt-12">
+                <h3 class="text-2xl font-bold text-pink-700 mb-4">Send Reemay a Virtual Hug!</h3>
+                <div class="flex justify-center space-x-4">
+                    <button class="hug-btn bg-pink-500 text-white w-16 h-16 rounded-full text-2xl shadow-lg hover:bg-pink-600 transition transform hover:scale-110">🤗</button>
+                    <button class="hug-btn bg-blue-500 text-white w-16 h-16 rounded-full text-2xl shadow-lg hover:bg-blue-600 transition transform hover:scale-110">🥰</button>
+                    <button class="hug-btn bg-purple-500 text-white w-16 h-16 rounded-full text-2xl shadow-lg hover:bg-purple-600 transition transform hover:scale-110">💖</button>
+                    <button class="hug-btn bg-yellow-500 text-white w-16 h-16 rounded-full text-2xl shadow-lg hover:bg-yellow-600 transition transform hover:scale-110">😘</button>
+                </div>
+                <p id="hug-message" class="mt-4 text-lg font-medium" style="color: var(--text-primary);"></p>
+            </div>
+
+            <!-- Mood Tracker -->
+            <div class="mt-12 mood-tracker">
+                <h3 class="text-2xl font-bold text-center text-purple-700 mb-4">Today's Mood</h3>
+                <div class="flex justify-center space-x-6">
+                    <div class="mood-option" data-mood="sad">😢</div>
+                    <div class="mood-option" data-mood="neutral">😐</div>
+                    <div class="mood-option" data-mood="happy">😊</div>
+                    <div class="mood-option" data-mood="excited">🤩</div>
+                    <div class="mood-option" data-mood="loved">🥰</div>
+                </div>
+                <p id="mood-message" class="mt-4 text-lg font-medium text-center"></p>
+            </div>
+
+            <!-- Daily Affirmation -->
+            <div class="mt-12 bg-gradient-to-r from-pink-100 to-blue-100 rounded-2xl p-6 shadow-lg">
+                <h3 class="text-2xl font-bold text-purple-700 mb-4">Daily Affirmation</h3>
+                <div id="affirmation-display" class="text-xl font-medium mb-4">
+                    You are enough, just as you are.
+                </div>
+                <button id="new-affirmation-btn" class="bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white px-6 py-3 rounded-full font-bold text-md shadow-lg transition transform hover:scale-105 flex items-center mx-auto">
+                    <i class="fas fa-redo mr-2"></i> New Affirmation
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MUSIC PLAYER ===== -->
+    <section id="music" class="py-20 px-4 bg-gradient-to-b from-blue-50 to-purple-50 relative overflow-hidden">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-8 rainbow-text">
+                Reemay's Joyful Tunes 🎶
+            </h2>
+            
+            <div class="bg-white rounded-3xl p-8 shadow-2xl mb-8 border-4 border-purple-300 relative" style="background: var(--card-bg);">
+                <div id="music-visualizer" class="h-32 mb-6 relative overflow-hidden"></div>
+                
+                <h3 class="text-2xl font-bold text-purple-700 mb-4">Now Playing</h3>
+                <div id="nowPlayingDisplay" class="text-lg font-medium mb-6">
+                    No song playing yet
+                </div>
+                
+                <div class="flex justify-center space-x-4 mb-6">
+                    <button id="play-btn" class="bg-gradient-to-r from-pink-500 to-purple-500 text-white w-12 h-12 rounded-full text-xl shadow-lg hover:opacity-90 transition transform hover:scale-110 flex items-center justify-center">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <button id="pause-btn" class="bg-gradient-to-r from-blue-500 to-teal-500 text-white w-12 h-12 rounded-full text-xl shadow-lg hover:opacity-90 transition transform hover:scale-110 flex items-center justify-center">
+                        <i class="fas fa-pause"></i>
+                    </button>
+                    <button id="stop-btn" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white w-12 h-12 rounded-full text-xl shadow-lg hover:opacity-90 transition transform hover:scale-110 flex items-center justify-center">
+                        <i class="fas fa-stop"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <p class="font-medium" style="color: var(--text-primary);">
+                Music to match your beautiful spirit! 🎵 Use the sidebar to manage your playlist!
+            </p>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-gradient-to-r from-pink-500 to-blue-500 text-white py-16 px-4 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
+            <div class="absolute top-20 left-20 text-white text-6xl opacity-20" style="animation: float 15s ease-in-out infinite;">✿</div>
+            <div class="absolute bottom-20 right-20 text-white text-6xl opacity-20" style="animation: float 18s ease-in-out infinite 2s;">❀</div>
+        </div>
+
+        <div class="max-w-6xl mx-auto text-center relative">
+            <div class="text-6xl mb-6 animate-bounce" style="animation-delay: 0.3s;">🌺</div>
+            <h3 class="text-3xl font-bold mb-6">
+                Thank you for being you!
+            </h3>
+            <p class="text-xl mb-8 max-w-2xl mx-auto font-medium">
+                Reemay, you're the most beautiful flower in life's garden. Keep blooming!
+            </p>
+            <div class="text-white text-opacity-80 font-medium">
+                Cultivated with <i class="fas fa-heart text-pink-300 animate-pulse"></i> by Vinny
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== CONFETTI CONTAINER ===== -->
+    <div id="confetti-container"></div>
+    
+    <!-- ===== SECRET MODAL ===== -->
+    <div id="secret-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[2000] hidden">
+        <div class="bg-gradient-to-br from-pink-100 to-blue-100 rounded-2xl p-8 max-w-md mx-4 relative">
+            <button id="close-secret" class="absolute top-4 right-4 text-gray-600 hover:text-gray-900">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            <h3 class="text-2xl font-bold text-pink-700 mb-4">A Secret Just For You</h3>
+            <div class="text-lg text-gray-800 mb-6">
+                <p>Every time you smile, my heart does a little happy dance. You're more magical than you realize!</p>
+                <p class="mt-4 text-pink-600 font-medium">You're loved more than words can express. 💖</p>
+            </div>
+            <div class="text-center text-4xl text-pink-500 animate-bounce">
+                💌
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== COMPLETE JAVASCRIPT - ALL FEATURES WORKING =====
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
+            initConnectionStatus();
+            initClock();
+            initConstellation();
+            initFireflies();
+            initGarden();
+            initButterfly();
+            initChat();
+            initPlaylist();
+            initOnlineMusic();
+            initEventListeners();
+            loadSavedData();
+            
+            showToast('🌸 Welcome to Reemay\'s Paradise!');
+        });
+
+        // ===== CONFIGURATION =====
+        const BACKEND_API = 'https://your-api.example.com';
+        const USER_ID = localStorage.getItem('userId') || 'user_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('userId', USER_ID);
+
+        // ===== MUSIC TAB SWITCHING =====
+        window.switchMusicTab = function(tab) {
+            const localTab = document.getElementById('localTab');
+            const onlineTab = document.getElementById('onlineTab');
+            const localSection = document.getElementById('localMusicSection');
+            const onlineSection = document.getElementById('onlineMusicSection');
+
+            if (tab === 'local') {
+                localTab.classList.add('active');
+                onlineTab.classList.remove('active');
+                localSection.style.display = 'block';
+                onlineSection.style.display = 'none';
+            } else {
+                onlineTab.classList.add('active');
+                localTab.classList.remove('active');
+                localSection.style.display = 'none';
+                onlineSection.style.display = 'block';
+                loadFeaturedMusic();
+            }
+        };
+
+        // ===== FILE INPUT HANDLER =====
+        document.getElementById('musicFileInput').addEventListener('change', function(e) {
+            const fileInfo = document.getElementById('fileInfo');
+            if (this.files.length > 0) {
+                fileInfo.innerHTML = `Selected: ${this.files[0].name}`;
+            } else {
+                fileInfo.innerHTML = 'No file selected';
+            }
+        });
+
+        // ===== ONLINE MUSIC FUNCTIONS =====
+        const onlineMusicLibrary = {
+            pop: [
+                { name: 'Shape of You', artist: 'Ed Sheeran', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
+                { name: 'Blinding Lights', artist: 'The Weeknd', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
+                { name: 'Dance Monkey', artist: 'Tones and I', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
+                { name: 'Someone Like You', artist: 'Adele', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3' }
+            ],
+            rock: [
+                { name: 'Bohemian Rhapsody', artist: 'Queen', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3' },
+                { name: 'Sweet Child O\' Mine', artist: 'Guns N\' Roses', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3' },
+                { name: 'Hotel California', artist: 'Eagles', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3' },
+                { name: 'Stairway to Heaven', artist: 'Led Zeppelin', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3' }
+            ],
+            jazz: [
+                { name: 'Take Five', artist: 'Dave Brubeck', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3' },
+                { name: 'So What', artist: 'Miles Davis', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3' },
+                { name: 'Feeling Good', artist: 'Nina Simone', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3' },
+                { name: 'Autumn Leaves', artist: 'Bill Evans', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3' }
+            ],
+            classical: [
+                { name: 'Moonlight Sonata', artist: 'Beethoven', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3' },
+                { name: 'Canon in D', artist: 'Pachelbel', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3' },
+                { name: 'The Four Seasons', artist: 'Vivaldi', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3' },
+                { name: 'Clair de Lune', artist: 'Debussy', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3' }
+            ],
+            electronic: [
+                { name: 'Strobe', artist: 'deadmau5', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
+                { name: 'Animals', artist: 'Martin Garrix', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
+                { name: 'Sandstorm', artist: 'Darude', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
+                { name: 'Levels', artist: 'Avicii', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3' }
+            ]
+        };
+
+        function initOnlineMusic() {
+            loadFeaturedMusic();
+        }
+
+        window.loadFeaturedMusic = function() {
+            const grid = document.getElementById('onlineMusicGrid');
+            let allSongs = [];
+            for (let category in onlineMusicLibrary) {
+                allSongs = allSongs.concat(onlineMusicLibrary[category]);
+            }
+            allSongs = shuffleArray(allSongs).slice(0, 8);
+            displayOnlineMusic(allSongs);
+        };
+
+        window.searchOnlineMusic = function() {
+            const searchTerm = document.getElementById('musicSearch').value.toLowerCase();
+            const category = document.getElementById('musicCategory').value;
+            
+            let songs = [];
+            if (category === 'all') {
+                for (let cat in onlineMusicLibrary) {
+                    songs = songs.concat(onlineMusicLibrary[cat]);
+                }
+            } else {
+                songs = onlineMusicLibrary[category] || [];
+            }
+
+            if (searchTerm) {
+                songs = songs.filter(song => 
+                    song.name.toLowerCase().includes(searchTerm) || 
+                    song.artist.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            displayOnlineMusic(songs);
+        };
+
+        function displayOnlineMusic(songs) {
+            const grid = document.getElementById('onlineMusicGrid');
+            if (songs.length === 0) {
+                grid.innerHTML = '<p style="grid-column: span 2; text-align: center; color: var(--text-secondary);">No songs found</p>';
+                return;
+            }
+
+            grid.innerHTML = songs.map(song => `
+                <div class="online-music-item" onclick="addOnlineSongToPlaylist('${song.name.replace(/'/g, "\\'")}', '${song.artist.replace(/'/g, "\\'")}', '${song.url}')">
+                    <i class="fas fa-music"></i>
+                    <div style="font-weight: bold; font-size: 0.9rem;">${song.name}</div>
+                    <div style="font-size: 0.8rem; opacity: 0.8;">${song.artist}</div>
+                </div>
+            `).join('');
+        }
+
+        window.addOnlineSongToPlaylist = function(name, artist, url) {
+            const song = {
+                id: Date.now(),
+                name: name,
+                artist: artist,
+                url: url,
+                dateAdded: new Date().toISOString()
+            };
+
+            playlist.push(song);
+            savePlaylist();
+            updatePlaylistUI();
+            showToast(`✅ "${name}" added to playlist!`);
+            createConfetti(5);
+        };
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // ===== THEME MANAGEMENT =====
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            document.getElementById('themeToggle').innerHTML = savedTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        }
+
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            const html = document.documentElement;
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            localStorage.setItem('theme', isDark ? 'light' : 'dark');
+            this.innerHTML = isDark ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+            showToast(isDark ? '☀️ Light mode enabled' : '🌙 Dark mode enabled');
+        });
+
+        // ===== CONNECTION STATUS =====
+        function initConnectionStatus() {
+            updateConnectionStatus();
+            window.addEventListener('online', updateConnectionStatus);
+            window.addEventListener('offline', updateConnectionStatus);
+        }
+
+        function updateConnectionStatus() {
+            const status = document.getElementById('connectionStatus');
+            const text = document.getElementById('connectionText');
+            if (navigator.onLine) {
+                status.classList.remove('offline');
+                text.textContent = 'Connected';
+            } else {
+                status.classList.add('offline');
+                text.textContent = 'Offline';
+            }
+        }
+
+        // ===== DIGITAL CLOCK =====
+        function initClock() {
+            updateClock();
+            setInterval(updateClock, 1000);
+        }
+
+        function updateClock() {
+            document.getElementById('digital-clock').textContent = new Date().toLocaleTimeString();
+        }
+
+        // ===== CONSTELLATION =====
+        function initConstellation() {
+            const container = document.getElementById('constellation');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = `${Math.random() * 3 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                container.appendChild(star);
+            }
+        }
+
+        // ===== FIREFLIES =====
+        function initFireflies(count = 10) {
+            for (let i = 0; i < count; i++) {
+                const firefly = document.createElement('div');
+                firefly.className = 'firefly';
+                firefly.textContent = '•';
+                firefly.style.left = `${Math.random() * 100}%`;
+                firefly.style.top = `${Math.random() * 100}%`;
+                firefly.style.animationDelay = `${Math.random() * 5}s`;
+                document.body.appendChild(firefly);
+            }
+        }
+
+        // ===== GARDEN FLOWERS =====
+        function initGarden(count = 15) {
+            const garden = document.getElementById('garden-zone');
+            const flowers = ['🌸', '🌺', '🌼', '🌻', '🌹', '🌷'];
+            for (let i = 0; i < count; i++) {
+                const flower = document.createElement('div');
+                flower.className = 'garden-flower';
+                flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+                flower.style.left = `${Math.random() * 100}%`;
+                flower.style.animationDelay = `${Math.random() * 2}s`;
+                garden.appendChild(flower);
+            }
+        }
+
+        // ===== BUTTERFLY CURSOR =====
+        function initButterfly() {
+            const butterfly = document.getElementById('butterfly');
+            let mouseX = 0, mouseY = 0;
+            let butterflyX = window.innerWidth / 2, butterflyY = window.innerHeight / 2;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animate() {
+                const dx = mouseX - butterflyX;
+                const dy = mouseY - butterflyY;
+                
+                butterflyX += dx * 0.05;
+                butterflyY += dy * 0.05;
+                
+                const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                
+                butterfly.style.left = `${butterflyX}px`;
+                butterfly.style.top = `${butterflyY}px`;
+                butterfly.style.transform = `rotate(${angle}deg)`;
+                
+                const now = Date.now();
+                butterfly.textContent = Math.floor(now / 300) % 2 ? '🦋' : '🌸';
+                
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // ===== CHAT SYSTEM =====
+        function initChat() {
+            const chatButton = document.getElementById('chatButtonEnhanced');
+            const chatSystem = document.getElementById('chatSystemEnhanced');
+            const closeBtn = document.getElementById('closeChatSystemEnhanced');
+            const sendBtn = document.getElementById('sendChatEnhanced');
+            const input = document.getElementById('chatInputEnhanced');
+            const messagesContainer = document.getElementById('chatMessagesEnhanced');
+            const badge = document.getElementById('chatBadgeEnhanced');
+            const onlineCount = document.getElementById('onlineCountEnhanced');
+
+            let isOpen = false;
+            let unreadCount = 0;
+            const onlineUsers = ['✨ Reemay', '🌸 Vinny', '🦋 Butterfly', '🌺 Flower', '💖 Love'];
+            const userMessages = [
+                "I love this paradise! 🌸",
+                "The music is amazing! 🎵",
+                "Has anyone seen the butterfly? 🦋",
+                "Today is such a beautiful day! ☀️",
+                "Reemay is the best! 💖",
+                "The flowers are blooming! 🌺",
+                "This chat is so much fun! 💬",
+                "Who's ready for some magic? ✨"
+            ];
+
+            chatButton.addEventListener('click', toggleChat);
+            closeBtn.addEventListener('click', toggleChat);
+            sendBtn.addEventListener('click', sendMessage);
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+
+            function toggleChat() {
+                isOpen = !isOpen;
+                chatSystem.classList.toggle('open', isOpen);
+                if (isOpen) {
+                    unreadCount = 0;
+                    badge.style.display = 'none';
+                }
+            }
+
+            function sendMessage() {
+                const message = input.value.trim();
+                if (!message) return;
+
+                addMessage(message, 'own');
+                input.value = '';
+
+                setTimeout(() => {
+                    const responses = [
+                        '🌸 That\'s beautiful!',
+                        '✨ You\'re amazing!',
+                        '💖 Love that!',
+                        '🌺 You make this place magical!',
+                        '🦋 The butterflies agree!'
+                    ];
+                    addMessage(responses[Math.floor(Math.random() * responses.length)], 'other');
+                }, 1000 + Math.random() * 2000);
+            }
+
+            function addMessage(text, type) {
+                const msg = document.createElement('div');
+                msg.className = `chat-message-enhanced message-${type}`;
+                msg.textContent = text;
+                messagesContainer.appendChild(msg);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+                if (!isOpen && type === 'other') {
+                    unreadCount++;
+                    badge.textContent = unreadCount;
+                    badge.style.display = 'flex';
+                }
+            }
+
+            onlineCount.textContent = onlineUsers.length + ' online';
+
+            setInterval(() => {
+                if (Math.random() > 0.6) {
+                    const randomUser = onlineUsers[Math.floor(Math.random() * onlineUsers.length)];
+                    const randomMessage = userMessages[Math.floor(Math.random() * userMessages.length)];
+                    addMessage(`${randomUser}: ${randomMessage}`, 'other');
+                }
+            }, 15000);
+
+            setInterval(() => {
+                if (Math.random() > 0.8) {
+                    const randomUser = onlineUsers[Math.floor(Math.random() * onlineUsers.length)];
+                    addMessage(`🌸 ${randomUser} joined the chat!`, 'system');
+                }
+            }, 30000);
+        }
+
+        // ===== PLAYLIST MANAGEMENT =====
+        let playlist = JSON.parse(localStorage.getItem('reemayPlaylist')) || [];
+        let currentTrackIndex = -1;
+        let currentAudio = null;
+
+        function initPlaylist() {
+            updatePlaylistUI();
+        }
+
+        window.addUploadedSong = function() {
+            const fileInput = document.getElementById('musicFileInput');
+            const nameInput = document.getElementById('songNameInput');
+            const artistInput = document.getElementById('songArtistInput');
+
+            if (fileInput.files.length === 0) {
+                showToast('Please select a music file!');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const song = {
+                id: Date.now(),
+                name: nameInput.value || file.name.replace(/\.[^/.]+$/, ""),
+                artist: artistInput.value || 'Unknown Artist',
+                url: URL.createObjectURL(file),
+                dateAdded: new Date().toISOString()
+            };
+
+            playlist.push(song);
+            savePlaylist();
+            updatePlaylistUI();
+            
+            nameInput.value = '';
+            artistInput.value = '';
+            fileInput.value = '';
+            document.getElementById('fileInfo').innerHTML = 'No file selected';
+            
+            showToast(`✅ "${song.name}" added to playlist!`);
+            createConfetti(10);
+        };
+
+        window.playSong = function(index) {
+            if (index < 0 || index >= playlist.length) return;
+            
+            if (currentAudio) {
+                currentAudio.pause();
+            }
+            
+            currentTrackIndex = index;
+            const song = playlist[index];
+            currentAudio = new Audio(song.url);
+            currentAudio.play();
+            
+            document.getElementById('nowPlayingDisplay').textContent = `🎵 ${song.name} - ${song.artist}`;
+            updatePlaylistUI();
+            createMusicNotes();
+            
+            if (window.musicNotesInterval) clearInterval(window.musicNotesInterval);
+            window.musicNotesInterval = setInterval(createMusicNotes, 800);
+            
+            showToast(`🎶 Now playing: ${song.name}`);
+        };
+
+        window.deleteSong = function(id) {
+            const index = playlist.findIndex(s => s.id === id);
+            if (index === currentTrackIndex) {
+                if (currentAudio) {
+                    currentAudio.pause();
+                    currentAudio = null;
+                }
+                currentTrackIndex = -1;
+                document.getElementById('nowPlayingDisplay').textContent = 'No song playing';
+                if (window.musicNotesInterval) {
+                    clearInterval(window.musicNotesInterval);
+                    window.musicNotesInterval = null;
+                }
+                document.getElementById('music-visualizer').innerHTML = '';
+            } else if (index < currentTrackIndex) {
+                currentTrackIndex--;
+            }
+            
+            playlist = playlist.filter(s => s.id !== id);
+            savePlaylist();
+            updatePlaylistUI();
+            showToast('🗑️ Song deleted');
+        };
+
+        function savePlaylist() {
+            localStorage.setItem('reemayPlaylist', JSON.stringify(playlist));
+        }
+
+        function updatePlaylistUI() {
+            const container = document.getElementById('playlistContainer');
+            if (playlist.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 20px;">No songs yet. Add your first song! 🎵</p>';
+                return;
+            }
+
+            container.innerHTML = playlist.map((song, idx) => `
+                <div class="playlist-item ${song.id === playlist[currentTrackIndex]?.id ? 'playing' : ''}">
+                    <div style="flex: 1; cursor: pointer;" onclick="playSong(${idx})">
+                        <div style="font-weight: bold; color: var(--text-primary);">${song.name}</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary);">${song.artist}</div>
+                    </div>
+                    <button class="delete-song-btn" onclick="deleteSong(${song.id})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // ===== MUSIC VISUALIZER =====
+        function createMusicNotes() {
+            const visualizer = document.getElementById('music-visualizer');
+            if (!visualizer) return;
+            
+            const notes = ['♪', '♫', '♩', '♬', '♭', '♮'];
+            const colors = ['#ff4d8d', '#4da6ff', '#b366ff', '#ffcc4d', '#2dd4bf'];
+            
+            for (let i = 0; i < 5; i++) {
+                const note = document.createElement('div');
+                note.className = 'music-note';
+                note.textContent = notes[Math.floor(Math.random() * notes.length)];
+                note.style.color = colors[Math.floor(Math.random() * colors.length)];
+                note.style.left = `${Math.random() * 100}%`;
+                note.style.fontSize = `${Math.random() * 20 + 20}px`;
+                visualizer.appendChild(note);
+                setTimeout(() => note.remove(), 2000);
+            }
+        }
+
+        // Music control buttons
+        document.getElementById('play-btn')?.addEventListener('click', function() {
+            if (playlist.length === 0) {
+                showToast('Add songs to your playlist first!');
+                return;
+            }
+            if (currentTrackIndex < 0) {
+                playSong(0);
+            } else if (currentAudio) {
+                currentAudio.play();
+                if (!window.musicNotesInterval) {
+                    window.musicNotesInterval = setInterval(createMusicNotes, 800);
+                }
+            }
+        });
+
+        document.getElementById('pause-btn')?.addEventListener('click', function() {
+            if (currentAudio) {
+                currentAudio.pause();
+                if (window.musicNotesInterval) {
+                    clearInterval(window.musicNotesInterval);
+                    window.musicNotesInterval = null;
+                }
+            }
+        });
+
+        document.getElementById('stop-btn')?.addEventListener('click', function() {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+            if (window.musicNotesInterval) {
+                clearInterval(window.musicNotesInterval);
+                window.musicNotesInterval = null;
+            }
+            document.getElementById('music-visualizer').innerHTML = '';
+        });
+
+        // ===== PHOTO GALLERY =====
+        window.deletePhoto = function(btn) {
+            const item = btn.closest('.gallery-item');
+            if (item) {
+                item.remove();
+                savePhotos();
+                showToast('🗑️ Photo deleted');
+            }
+        };
+
+        document.getElementById('photoInput')?.addEventListener('change', function(e) {
+            handlePhotoFiles(e.target.files);
+        });
+
+        function handlePhotoFiles(files) {
+            for (let file of files) {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        addPhotoToGallery(e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+            showToast(`📸 Added ${files.length} photo(s)!`);
+            createConfetti(10);
+        }
+
+        function addPhotoToGallery(src) {
+            const gallery = document.getElementById('photoGallery');
+            const item = document.createElement('div');
+            item.className = 'gallery-item';
+            item.innerHTML = `
+                <img src="${src}" alt="Uploaded Photo">
+                <button class="delete-btn" onclick="deletePhoto(this)"><i class="fas fa-trash"></i></button>
+            `;
+            gallery.appendChild(item);
+            savePhotos();
+        }
+
+        function savePhotos() {
+            const photos = [];
+            document.querySelectorAll('.gallery-item img').forEach(img => {
+                photos.push(img.src);
+            });
+            localStorage.setItem('reemayPhotos', JSON.stringify(photos));
+        }
+
+        // ===== TOAST NOTIFICATION =====
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast-notification';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+
+        // ===== CONFETTI =====
+        function createConfetti(count) {
+            const container = document.getElementById('confetti-container');
+            const emojis = ['🌸', '🌼', '✨', '🌟', '💖', '💫', '🎀', '🎉'];
+            for (let i = 0; i < count; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.fontSize = `${Math.random() * 24 + 16}px`;
+                confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+                container.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        // ===== FALLING FLOWERS =====
+        function createFallingFlowers(count) {
+            const container = document.getElementById('falling-flowers-container');
+            const flowers = ['🌸', '🌺', '🌼', '🌻', '🌹', '🌷'];
+            for (let i = 0; i < count; i++) {
+                const flower = document.createElement('div');
+                flower.className = 'falling-flower';
+                flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+                flower.style.left = `${Math.random() * 100}vw`;
+                flower.style.fontSize = `${Math.random() * 30 + 20}px`;
+                flower.style.animationDuration = `${Math.random() * 8 + 5}s`;
+                flower.style.animationDelay = `${Math.random() * 2}s`;
+                container.appendChild(flower);
+                setTimeout(() => flower.remove(), 13000);
+            }
+        }
+
+        // ===== EVENT LISTENERS =====
+        function initEventListeners() {
+            // Music sidebar toggle
+            document.getElementById('musicSidebarToggle').addEventListener('click', () => {
+                document.getElementById('musicPlayerSidebar').classList.toggle('open');
+            });
+
+            // Magic button
+            document.getElementById('magic-button').addEventListener('click', function() {
+                createConfetti(50);
+                createFallingFlowers(30);
+                showToast('✨ Magic activated!');
+                animateLoveMeter();
+            });
+
+            // Magic FAB
+            document.getElementById('magic-fab').addEventListener('click', function() {
+                createConfetti(30);
+                createFallingFlowers(20);
+                showToast('🌟 More magic incoming!');
+            });
+
+            // Secret button
+            document.getElementById('secret-btn').addEventListener('click', function() {
+                document.getElementById('secret-modal').classList.remove('hidden');
+                createConfetti(20);
+            });
+
+            document.getElementById('close-secret').addEventListener('click', function() {
+                document.getElementById('secret-modal').classList.add('hidden');
+            });
+
+            // New quote button
+            document.getElementById('new-quote-btn').addEventListener('click', function() {
+                const quotes = [
+                    {text: "You are the magic you wish to see.", author: "Blossom Fairy"},
+                    {text: "Happiness blooms from within.", author: "Garden Wisdom"},
+                    {text: "Your smile helps the garden grow.", author: "Flower Spirit"},
+                    {text: "Every day is a new beginning.", author: "Sunshine"},
+                    {text: "You are loved more than you know.", author: "Heart"}
+                ];
+                const q = quotes[Math.floor(Math.random() * quotes.length)];
+                document.getElementById('daily-quote-text').textContent = `"${q.text}"`;
+                document.getElementById('quote-author').textContent = `- ${q.author}`;
+            });
+
+            // Hack button
+            document.getElementById('hack-btn').addEventListener('click', function() {
+                const messages = [
+                    "> SCANNING FOR PERFECTION...\n> RESULT: REEMAY FOUND ✓\n> LEVEL: MAXIMUM",
+                    "> ANALYZING CHARM...\n> CHARISMA: OVERFLOW\n> BEAUTY: UNMEASURABLE",
+                    "> RUNNING LOVE DIAGNOSTIC...\n> HEART: PURE GOLD\n> SOUL: RADIANT",
+                    "> CHECKING DATABASE...\n> REEMAY: INFINITE LOVE\n> STATUS: PERFECT"
+                ];
+                document.getElementById('hacker-text').textContent = messages[Math.floor(Math.random() * messages.length)];
+                createConfetti(15);
+                showToast('💻 Love scan complete!');
+            });
+
+            // Decode button
+            document.getElementById('decode-btn').addEventListener('click', function() {
+                const messages = [
+                    "You're more precious than the rarest gem",
+                    "Your smile is my favorite sight",
+                    "The world is better with you in it",
+                    "You are the reason for smiles",
+                    "Love you to the moon and back"
+                ];
+                alert(`🔐 Decoded Message: "${messages[Math.floor(Math.random() * messages.length)]}"`);
+                createConfetti(15);
+                showToast('💌 Secret message revealed!');
+            });
+
+            // Boost joy button
+            document.getElementById('boost-joy-btn').addEventListener('click', function() {
+                const progress = document.getElementById('joy-progress');
+                const percent = document.getElementById('joy-percent');
+                let current = parseInt(progress.style.width) || 75;
+                let newWidth = Math.min(current + 10, 100);
+                progress.style.width = newWidth + '%';
+                percent.textContent = newWidth + '%';
+                createConfetti(15);
+                showToast('🌈 Joy boosted!');
+            });
+
+            // Compliment button
+            document.getElementById('compliment-button').addEventListener('click', function() {
+                const compliments = [
+                    "Your smile could power cities!",
+                    "You're like human sunshine!",
+                    "You make every day a celebration!",
+                    "You're absolutely amazing!",
+                    "The world is brighter with you in it!"
+                ];
+                document.getElementById('compliment-display').textContent = 
+                    compliments[Math.floor(Math.random() * compliments.length)];
+                createConfetti(15);
+                createFallingFlowers(8);
+            });
+
+            // Confetti button
+            document.getElementById('confetti-button').addEventListener('click', function() {
+                createConfetti(200);
+                showToast('🎉 Celebration mode activated!');
+            });
+
+            // Flower storm button
+            document.getElementById('flower-storm-btn').addEventListener('click', function() {
+                createFallingFlowers(100);
+                showToast('🌸 Flower storm incoming!');
+            });
+
+            // Hug buttons
+            document.querySelectorAll('.hug-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const messages = [
+                        "A warm, squishy hug just for you! 🤗",
+                        "Sending you a hug so tight it squeaks! 🥰",
+                        "Virtual hug with extra love! 💖",
+                        "Big bear hug coming your way! 🐻",
+                        "Hugs and kisses for you! 💋"
+                    ];
+                    document.getElementById('hug-message').textContent = 
+                        messages[Math.floor(Math.random() * messages.length)];
+                    createConfetti(20);
+                    createFallingFlowers(10);
+                });
+            });
+
+            // Mood tracker
+            document.querySelectorAll('.mood-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const mood = this.dataset.mood;
+                    const messages = {
+                        'sad': 'Sending you virtual hugs! 🌸💖',
+                        'neutral': 'Let\'s turn that smile up! ✨',
+                        'happy': 'Your happiness makes the garden bloom! 🌺',
+                        'excited': 'Woohoo! That\'s contagious! 🎉',
+                        'loved': 'You\'re so loved! 💕'
+                    };
+                    document.getElementById('mood-message').textContent = messages[mood];
+                    this.style.transform = 'scale(1.3)';
+                    setTimeout(() => this.style.transform = '', 300);
+                    
+                    if (mood === 'sad') createFallingFlowers(15);
+                    else if (mood === 'excited') createConfetti(40);
+                    else createConfetti(20);
+                });
+            });
+
+            // New affirmation button
+            document.getElementById('new-affirmation-btn').addEventListener('click', function() {
+                const affirmations = [
+                    "You are enough, just as you are.",
+                    "Your presence is a gift to the world.",
+                    "You radiate beauty from inside out.",
+                    "You are stronger than you know.",
+                    "You deserve all the love in the world."
+                ];
+                document.getElementById('affirmation-display').textContent = 
+                    affirmations[Math.floor(Math.random() * affirmations.length)];
+                createConfetti(10);
+            });
+
+            // Mobile menu
+            document.getElementById('mobile-menu-button').addEventListener('click', function() {
+                const menu = document.getElementById('mobile-menu');
+                menu.classList.toggle('hidden');
+                this.innerHTML = menu.classList.contains('hidden') ? 
+                    '<i class="fas fa-bars text-2xl"></i>' : 
+                    '<i class="fas fa-times text-2xl"></i>';
+            });
+
+            // Auto effects
+            setInterval(() => {
+                if (Math.random() > 0.7) createFallingFlowers(3);
+            }, 5000);
+
+            setInterval(() => {
+                if (Math.random() > 0.8) createConfetti(5);
+            }, 8000);
+        }
+
+        // ===== LOVE METER ANIMATION =====
+        function animateLoveMeter() {
+            const meter = document.getElementById('love-meter-fill');
+            const percent = document.getElementById('love-percent');
+            meter.style.width = '0%';
+            percent.textContent = '0%';
+            
+            let width = 0;
+            const interval = setInterval(() => {
+                width += 2;
+                meter.style.width = width + '%';
+                percent.textContent = width + '%';
+                if (width >= 100) clearInterval(interval);
+            }, 20);
+        }
+
+        // ===== LOAD SAVED DATA =====
+        function loadSavedData() {
+            // Load photos
+            const savedPhotos = JSON.parse(localStorage.getItem('reemayPhotos') || '[]');
+            if (savedPhotos.length > 0) {
+                document.getElementById('photoGallery').innerHTML = '';
+                savedPhotos.forEach(src => addPhotoToGallery(src));
+            }
+
+            // Load playlist
+            playlist = JSON.parse(localStorage.getItem('reemayPlaylist') || '[]');
+            updatePlaylistUI();
+        }
+
+        // Make functions globally accessible
+        window.deletePhoto = deletePhoto;
+        window.playSong = playSong;
+        window.deleteSong = deleteSong;
+        window.addUploadedSong = addUploadedSong;
+        window.showToast = showToast;
+        window.createConfetti = createConfetti;
+        window.createFallingFlowers = createFallingFlowers;
+    </script>
+</body>
+</html>
