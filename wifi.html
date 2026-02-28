@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>VinnyConnect Pro | Premium WiFi Payment System</title>
+    
+    <!-- Core CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Animation Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Firebase for real-time chat -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <style>
+        /* ============== GLOBAL VARIABLES ============== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-50: #e6f7e6;
+            --primary-100: #b3e6b3;
+            --primary-200: #80d680;
+            --primary-300: #4dc64d;
+            --primary-400: #1ab51a;
+            --primary-500: #00a500;
+            --primary-600: #008f00;
+            --primary-700: #007a00;
+            --primary-800: #006400;
+            --primary-900: #004f00;
+            
+            --secondary-50: #e6f3ff;
+            --secondary-100: #b3d9ff;
+            --secondary-200: #80bfff;
+            --secondary-300: #4da6ff;
+            --secondary-400: #1a8cff;
+            --secondary-500: #0073e6;
+            --secondary-600: #005bb3;
+            --secondary-700: #004280;
+            --secondary-800: #002a4d;
+            --secondary-900: #001126;
+            
+            --accent-50: #f2e6ff;
+            --accent-100: #d9b3ff;
+            --accent-200: #bf80ff;
+            --accent-300: #a64dff;
+            --accent-400: #8c1aff;
+            --accent-500: #7300e6;
+            --accent-600: #5900b3;
+            --accent-700: #400080;
+            --accent-800: #26004d;
+            --accent-900: #130026;
+            
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --info: #3b82f6;
+            --whatsapp: #25D366;
+            
+            --glass-bg: rgba(10, 15, 30, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        html {
+            font-size: 14px;
+            -webkit-tap-highlight-color: transparent;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            position: relative;
+            min-height: 100vh;
+            background: radial-gradient(circle at 10% 20%, #1a1f35, #0a0f1e);
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* ============== 3D BACKGROUND ============== */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        /* ============== GLASS CARD ============== */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary-400);
+            box-shadow: 0 25px 50px rgba(0, 255, 136, 0.15);
+        }
+
+        /* ============== GRADIENT TEXT ============== */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-400), var(--secondary-400), var(--accent-400));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+
+        /* ============== ANIMATED BUTTON ============== */
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary-400), var(--secondary-400), var(--accent-400));
+            background-size: 200% 200%;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: gradientShift 3s ease infinite;
+            box-shadow: 0 6px 15px rgba(0, 255, 136, 0.25);
+            width: 100%;
+        }
+
+        .btn-primary:active { transform: scale(0.98); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ============== MAIN CONTAINER - CENTERED ============== */
+        .main-container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* ============== PLAN CARDS - 2 COLUMN ============== */
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .plan-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 204, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary-400);
+            box-shadow: 0 15px 25px -8px rgba(0, 255, 136, 0.25);
+        }
+
+        .plan-card.selected {
+            border: 2px solid var(--primary-400);
+            background: rgba(0, 255, 136, 0.05);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.25);
+        }
+
+        .plan-card.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-400);
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+            box-shadow: 0 0 15px var(--primary-400);
+        }
+
+        /* ============== BADGES ============== */
+        .badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .badge-popular {
+            background: linear-gradient(135deg, var(--primary-400), var(--secondary-400));
+            color: #000;
+        }
+
+        .badge-value {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        /* ============== POPUP STYLES ============== */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 1999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .popup-overlay.active { opacity: 1; visibility: visible; }
+
+        .payment-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 92%;
+            max-width: 360px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            border-radius: 24px;
+            padding: 20px;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .payment-popup.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* ============== INPUT FIELDS ============== */
+        .input-field {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary-400);
+            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.15);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        .input-prefix {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 500;
+            font-size: 13px;
+        }
+
+        .input-field.with-prefix { padding-left: 50px; }
+
+        /* ============== NETWORK OPTIONS ============== */
+        .network-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .network-option {
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .network-option i {
+            font-size: 18px;
+            margin-bottom: 2px;
+            display: block;
+        }
+
+        .network-option span { font-weight: 600; font-size: 12px; }
+        .network-option.mpesa.active { border-color: #00ff88; background: rgba(0, 255, 136, 0.1); }
+        .network-option.airtel.active { border-color: #ff4444; background: rgba(255, 68, 68, 0.1); }
+
+        /* ============== PIN INPUT ============== */
+        .pin-container {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 14px 0;
+        }
+
+        .pin-box {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary-400);
+            transition: all 0.2s ease;
+        }
+
+        .pin-box.filled { border-color: var(--primary-400); box-shadow: 0 0 12px var(--primary-400); transform: scale(1.05); }
+        .pin-input-hidden { position: absolute; opacity: 0; width: 0; height: 0; }
+
+        /* ============== STK SIMULATION ============== */
+        .stk-simulation {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 12px;
+            padding: 10px;
+            margin: 14px 0;
+            display: none;
+        }
+
+        .stk-simulation.active { display: block; }
+        .stk-progress { height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; margin: 8px 0; overflow: hidden; }
+        .stk-progress-bar { height: 100%; background: linear-gradient(90deg, var(--primary-400), var(--secondary-400)); width: 0%; animation: stkProgress 3s linear infinite; }
+
+        @keyframes stkProgress {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        /* ============== SMART BADGE ============== */
+        .smart-badge {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            padding: 2px 5px;
+            border-radius: 16px;
+            font-size: 8px;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* ============== CONNECTION STATUS ============== */
+        .connection-bar {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 30px;
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--success);
+            box-shadow: 0 0 10px var(--success);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        /* ============== SPEED METER ============== */
+        .speed-meter { height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; margin: 6px 0; }
+        .speed-fill { height: 100%; background: linear-gradient(90deg, var(--primary-400), var(--secondary-400)); transition: width 0.3s ease; }
+
+        .wifi-bars {
+            display: flex;
+            align-items: flex-end;
+            height: 12px;
+            gap: 2px;
+        }
+
+        .wifi-bar { width: 3px; background: var(--primary-400); border-radius: 2px; }
+        .wifi-bar:nth-child(1) { height: 4px; }
+        .wifi-bar:nth-child(2) { height: 6px; }
+        .wifi-bar:nth-child(3) { height: 8px; }
+        .wifi-bar:nth-child(4) { height: 10px; }
+
+        /* ============== USAGE STATS ============== */
+        .usage-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            margin-top: 8px;
+        }
+
+        .stat-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .stat-value { font-size: 14px; font-weight: bold; color: var(--primary-400); }
+        .stat-label { font-size: 8px; color: rgba(255,255,255,0.5); }
+
+        /* ============== DATA SAVER TOGGLE ============== */
+        .data-saver-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            margin: 10px 0;
+            font-size: 12px;
+        }
+
+        .toggle-switch {
+            width: 40px;
+            height: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-switch.active { background: var(--primary-400); }
+        .toggle-switch::after {
+            content: '';
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-switch.active::after { left: 22px; }
+
+        /* ============== SUPPORT SECTION ============== */
+        .support-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .support-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 14px;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .support-card:hover { border-color: var(--primary-400); transform: translateY(-2px); }
+
+        .support-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .support-icon.whatsapp { background: rgba(37,211,102,0.2); color: #25D366; }
+        .support-icon.phone { background: rgba(0,255,136,0.2); color: #00ff88; }
+        .support-icon.email { background: rgba(0,204,255,0.2); color: #00ccff; }
+
+        .support-details { flex: 1; }
+        .support-label { font-size: 9px; color: rgba(255,255,255,0.5); }
+        .support-value { font-weight: 600; font-size: 11px; }
+
+        /* ============== CHAT SYSTEM ============== */
+        .chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-400), var(--secondary-400));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .chat-button:hover { transform: scale(1.1); box-shadow: 0 12px 25px rgba(0,255,136,0.4); }
+
+        .chat-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--error);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+            border: 2px solid white;
+        }
+
+        .chat-container {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 0;
+            height: 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 999;
+            opacity: 0;
+            transform-origin: bottom right;
+        }
+
+        .chat-container.open {
+            width: 320px;
+            height: 450px;
+            opacity: 1;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, var(--primary-400), var(--secondary-400));
+            color: black;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: bold;
+        }
+
+        .chat-messages {
+            height: 330px;
+            overflow-y: auto;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-message {
+            max-width: 80%;
+            padding: 8px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            word-wrap: break-word;
+            animation: messageSlide 0.3s ease;
+        }
+
+        @keyframes messageSlide {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chat-message.bot {
+            background: rgba(255,255,255,0.1);
+            align-self: flex-start;
+            border-radius: 15px 15px 15px 5px;
+        }
+
+        .chat-message.user {
+            background: linear-gradient(135deg, var(--primary-400), var(--secondary-400));
+            color: black;
+            align-self: flex-end;
+            border-radius: 15px 15px 5px 15px;
+        }
+
+        .chat-input-area {
+            padding: 10px;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            color: white;
+            font-size: 12px;
+        }
+
+        .chat-input-area button {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-400);
+            border: none;
+            color: black;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input-area button:hover { transform: scale(1.1); }
+
+        /* ============== MODALS ============== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(12px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .modal.active { display: flex; }
+
+        .modal-content {
+            max-width: 360px;
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 24px;
+            animation: modalSlideUp 0.4s ease;
+        }
+
+        @keyframes modalSlideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(0,255,136,0.2);
+            border-top-color: var(--primary-400);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ============== NOTIFICATION ============== */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            left: 20px;
+            max-width: 320px;
+            margin: 0 auto;
+            padding: 12px 16px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 500;
+            font-size: 13px;
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-100%); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .notification.show { display: flex; }
+        .notification.success { border-left: 4px solid var(--success); }
+        .notification.error { border-left: 4px solid var(--error); }
+        .notification.warning { border-left: 4px solid var(--warning); }
+
+        /* ============== CELEBRATION ============== */
+        .confetti {
+            position: fixed;
+            pointer-events: none;
+            z-index: 4000;
+            animation: confettiFall 2.5s ease-out forwards;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* ============== RESPONSIVE ============== */
+        @media (max-width: 768px) {
+            .plans-grid { gap: 10px; }
+            .support-section { grid-template-columns: repeat(2, 1fr); }
+            .main-container { padding: 0 12px; }
+            body { padding: 15px; }
+        }
+
+        @media (max-width: 640px) {
+            .plans-grid { grid-template-columns: 1fr; }
+            .support-section { grid-template-columns: 1fr; }
+            .main-container { padding: 0 10px; }
+            body { padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Three.js Background -->
+    <div id="canvas-container"></div>
+
+    <!-- Notification System -->
+    <div id="notification" class="notification">
+        <i class="fas fa-info-circle"></i>
+        <span id="notification-message"></span>
+    </div>
+
+    <!-- Chat System -->
+    <div class="chat-button" id="chat-button">
+        <i class="fas fa-comment-dots"></i>
+        <div class="chat-badge" id="chat-badge">1</div>
+    </div>
+
+    <div class="chat-container" id="chat-container">
+        <div class="chat-header">
+            <span><i class="fas fa-headset mr-2"></i> VinnyConnect Support</span>
+            <i class="fas fa-times cursor-pointer" id="chat-close"></i>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="chat-message bot">
+                👋 Hi! Welcome to VinnyConnect support. How can I help you today?
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Type your message...">
+            <button id="chat-send"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Popup Overlay -->
+    <div id="popup-overlay" class="popup-overlay"></div>
+
+    <!-- Payment Popup -->
+    <div id="payment-popup" class="payment-popup">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold gradient-text">Complete Payment</h2>
+            <button id="close-popup" class="text-gray-400 hover:text-white"><i class="fas fa-times"></i></button>
+        </div>
+
+        <!-- Plan Summary -->
+        <div id="plan-summary" class="bg-green-500/10 border border-green-500/30 rounded-xl p-3 mb-4 flex justify-between">
+            <div>
+                <div class="text-xs text-gray-400">Selected Plan</div>
+                <div class="font-bold text-green-400 text-sm" id="popup-plan-details">-</div>
+            </div>
+            <div class="text-right">
+                <div class="text-xs text-gray-400">Amount</div>
+                <div class="font-bold text-green-400 text-sm" id="popup-plan-amount">-</div>
+            </div>
+        </div>
+
+        <!-- Network Selection -->
+        <div class="network-options">
+            <div class="network-option mpesa active" id="popup-mpesa">
+                <i class="fas fa-mobile-alt"></i>
+                <span>M-Pesa</span>
+            </div>
+            <div class="network-option airtel" id="popup-airtel">
+                <i class="fas fa-mobile-alt"></i>
+                <span>Airtel</span>
+            </div>
+        </div>
+
+        <!-- Phone Input -->
+        <div class="input-group">
+            <span class="input-prefix">+254</span>
+            <input type="tel" id="popup-phone" class="input-field with-prefix" placeholder="712345678" maxlength="9" inputmode="numeric">
+        </div>
+
+        <!-- STK Simulation -->
+        <div id="stk-simulation" class="stk-simulation">
+            <div class="flex items-center gap-2 mb-2">
+                <i class="fas fa-mobile-alt text-green-400"></i>
+                <span class="text-sm">STK Push sent to your phone</span>
+            </div>
+            <div class="stk-progress">
+                <div class="stk-progress-bar"></div>
+            </div>
+            <p class="text-xs text-gray-400 mt-2">Check your phone for payment request</p>
+        </div>
+
+        <!-- PIN Section -->
+        <div id="pin-section" style="display: none;">
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-sm text-gray-400">Enter 4-digit PIN</span>
+                <span class="text-xs text-gray-500">Paybill: 0768359087</span>
+            </div>
+            
+            <input type="text" id="pin-input" class="pin-input-hidden" maxlength="4" inputmode="numeric">
+            <div class="pin-container">
+                <div class="pin-box"></div>
+                <div class="pin-box"></div>
+                <div class="pin-box"></div>
+                <div class="pin-box"></div>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <button id="popup-continue" class="btn-primary" disabled>Send STK Push</button>
+        <button id="popup-pay" class="btn-primary" style="display: none;">Confirm Payment</button>
+    </div>
+
+    <!-- Main Container - Centered -->
+    <div class="main-container">
+        <!-- Header -->
+        <div class="glass-card p-5 mb-4">
+            <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center text-2xl">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-black gradient-text">VinnyConnect</h1>
+                        <p class="text-xs text-gray-400">Premium WiFi • Paybill: 0768359087</p>
+                    </div>
+                </div>
+                <button id="admin-toggle" class="w-8 h-8 rounded-full glass-card flex items-center justify-center text-gray-400">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+
+            <!-- Connection Status -->
+            <div class="bg-white/5 border border-white/10 rounded-xl p-3">
+                <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                    <div class="flex items-center gap-2">
+                        <div class="status-dot" id="connection-dot"></div>
+                        <span class="font-medium text-sm">VinnyConnect_5G</span>
+                        <span class="text-xs text-gray-400" id="connection-time">00:00:00</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs text-gray-400">Speed</span>
+                        <span class="text-sm font-bold text-green-400" id="speed-display">85 Mbps</span>
+                        <div class="wifi-bars">
+                            <div class="wifi-bar"></div>
+                            <div class="wifi-bar"></div>
+                            <div class="wifi-bar"></div>
+                            <div class="wifi-bar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="speed-meter">
+                    <div class="speed-fill" id="speed-meter" style="width: 85%"></div>
+                </div>
+
+                <!-- Usage Stats -->
+                <div class="usage-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="data-used">0</div>
+                        <div class="stat-label">Data Used</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="time-left">2h</div>
+                        <div class="stat-label">Time Left</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="devices-count">1</div>
+                        <div class="stat-label">Devices</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Smart Recommendations -->
+        <div class="glass-card p-4 mb-4">
+            <div class="flex items-center gap-2 mb-3">
+                <i class="fas fa-robot text-purple-400"></i>
+                <span class="font-medium text-sm">Smart Recommendations</span>
+            </div>
+            <div class="flex gap-2 overflow-x-auto pb-2">
+                <div class="bg-purple-500/20 border border-purple-500/30 rounded-full px-3 py-1.5 text-xs whitespace-nowrap">
+                    <i class="fas fa-clock text-purple-400 mr-1"></i> Most popular: 24 Hours
+                </div>
+                <div class="bg-blue-500/20 border border-blue-500/30 rounded-full px-3 py-1.5 text-xs whitespace-nowrap">
+                    <i class="fas fa-users text-blue-400 mr-1"></i> Family: 1 Week (2 devices)
+                </div>
+                <div class="bg-green-500/20 border border-green-500/30 rounded-full px-3 py-1.5 text-xs whitespace-nowrap">
+                    <i class="fas fa-star text-green-400 mr-1"></i> Best value: 1 Month (600 KES)
+                </div>
+            </div>
+        </div>
+
+        <!-- Voucher Input -->
+        <div class="glass-card p-4 mb-4">
+            <div class="flex gap-2">
+                <input type="text" id="voucher-input" placeholder="Enter voucher code" class="input-field flex-1">
+                <button id="apply-voucher" class="px-5 py-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl font-bold text-sm">
+                    Apply
+                </button>
+            </div>
+        </div>
+
+        <!-- Plan Selection -->
+        <div class="glass-card p-5 mb-4">
+            <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-bolt text-green-400"></i>
+                Select WiFi Plan
+            </h2>
+
+            <!-- Category Filters -->
+            <div class="flex gap-1 mb-4 bg-black/20 p-1 rounded-xl">
+                <button class="category-btn active flex-1 py-2 text-xs rounded-lg font-medium bg-green-500 text-black" data-category="all">All</button>
+                <button class="category-btn flex-1 py-2 text-xs rounded-lg font-medium" data-category="hourly">Hourly</button>
+                <button class="category-btn flex-1 py-2 text-xs rounded-lg font-medium" data-category="weekly">Weekly</button>
+                <button class="category-btn flex-1 py-2 text-xs rounded-lg font-medium" data-category="monthly">Monthly</button>
+            </div>
+
+            <!-- Plans Grid - 2 Columns -->
+            <div class="plans-grid" id="plans-grid">
+                <!-- 2 Hours - 19 KES - 2 devices -->
+                <div class="plan-card" data-plan="19" data-duration="2 Hours" data-devices="2" data-category="hourly">
+                    <div class="smart-badge"><i class="fas fa-bolt text-yellow-400"></i> Quick</div>
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-xl font-bold text-green-400">19 KES</span>
+                        <span class="badge badge-popular">🔥 HOT</span>
+                    </div>
+                    <p class="text-base font-semibold">2 Hours</p>
+                    <p class="text-xs text-gray-400 mb-1">50 Mbps • 2 Devices</p>
+                    <div class="flex items-center gap-1 text-xs text-gray-400">
+                        <i class="fas fa-clock text-green-400"></i>
+                        <span>Quick access</span>
+                    </div>
+                </div>
+
+                <!-- 12 Hours - 29 KES - 1 device -->
+                <div class="plan-card" data-plan="29" data-duration="12 Hours" data-devices="1" data-category="hourly">
+                    <div class="smart-badge"><i class="fas fa-briefcase text-blue-400"></i> Work</div>
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-xl font-bold text-green-400">29 KES</span>
+                        <span class="badge badge-value">⚡ HALF DAY</span>
+                    </div>
+                    <p class="text-base font-semibold">12 Hours</p>
+                    <p class="text-xs text-gray-400 mb-1">50 Mbps • 1 Device</p>
+                    <div class="flex items-center gap-1 text-xs text-gray-400">
+                        <i class="fas fa-briefcase text-green-400"></i>
+                        <span>Perfect for work</span>
+                    </div>
+                </div>
+
+                <!-- 24 Hours - 39 KES - 1 device -->
+                <div class="plan-card" data-plan="39" data-duration="24 Hours" data-devices="1" data-category="hourly">
+                    <div class="smart-badge"><i class="fas fa-sun text-yellow-400"></i> Popular</div>
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-xl font-bold text-green-400">39 KES</span>
+                        <span class="badge badge-value">🌟 FULL DAY</span>
+                    </div>
+                    <p class="text-base font-semibold">24 Hours</p>
+                    <p class="text-xs text-gray-400 mb-1">50 Mbps • 1 Device</p>
+                    <div class="flex items-center gap-1 text-xs text-gray-400">
+                        <i class="fas fa-sun text-green-400"></i>
+                        <span>Full day access</span>
+                    </div>
+                </div>
+
+                <!-- 1 Week - 200 KES - 1 device -->
+                <div class="plan-card" data-plan="200" data-duration="1 Week" data-devices="1" data-category="weekly">
+                    <div class="smart-badge"><i class="fas fa-calendar text-blue-400"></i> Weekly</div>
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-xl font-bold text-blue-400">200 KES</span>
+                        <span class="badge badge-value">📅 WEEKLY</span>
+                    </div>
+                    <p class="text-base font-semibold">1 Week</p>
+                    <p class="text-xs text-gray-400 mb-1">50 Mbps • 1 Device</p>
+                    <div class="flex items-center gap-1 text-xs text-gray-400">
+                        <i class="fas fa-calendar text-blue-400"></i>
+                        <span>7 days access</span>
+                    </div>
+                </div>
+
+                <!-- 1 Week - 500 KES - 2 devices -->
+                <div class="plan-card" data-plan="500" data-duration="1 Week" data-devices="2" data-category="weekly">
+                    <div class="smart-badge"><i class="fas fa-users text-purple-400"></i> Family</div>
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-xl font-bold text-purple-400">500 KES</span>
+                        <span class="badge badge-popular">👥 FAMILY</span>
+                    </div>
+                    <p class="text-base font-semibold">1 Week</p>
+                    <p class="text-xs text-gray-400 mb-1">50 Mbps • 2 Devices</p>
+                    <div class="flex items-center gap-1 text-xs text-gray-400">
+                        <i class="fas fa-users text-purple-400"></i>
+                        <span>Share with family</span>
+                    </div>
+                </div>
+
+                <!-- 1 Month - 600 KES - 1 device -->
+                <div class="plan-card" data-plan="600" data-duration="1 Month" data-devices="1" data-category="monthly">
+                    <div class="smart-badge"><i class="fas fa-star text-yellow-400"></i> Best Value</div>
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-xl font-bold text-yellow-400">600 KES</span>
+                        <span class="badge badge-value">📆 MONTHLY</span>
+                    </div>
+                    <p class="text-base font-semibold">1 Month</p>
+                    <p class="text-xs text-gray-400 mb-1">50 Mbps • 1 Device</p>
+                    <div class="flex items-center gap-1 text-xs text-gray-400">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <span>Best value</span>
+                    </div>
+                </div>
+
+                <!-- 1 Month - 800 KES - 2 devices - Full width -->
+                <div class="plan-card md:col-span-2" data-plan="800" data-duration="1 Month" data-devices="2" data-category="monthly">
+                    <div class="smart-badge"><i class="fas fa-crown text-pink-400"></i> Premium</div>
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-xl font-bold text-pink-400">800 KES</span>
+                        <span class="badge badge-popular">👑 PREMIUM</span>
+                    </div>
+                    <p class="text-base font-semibold">1 Month</p>
+                    <p class="text-xs text-gray-400 mb-1">100 Mbps • 2 Devices • Priority Support</p>
+                    <div class="flex items-center gap-3 text-xs text-gray-400">
+                        <span><i class="fas fa-crown text-pink-400"></i> Ultimate plan</span>
+                        <span><i class="fas fa-headset text-pink-400"></i> 24/7 Priority</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Saver Toggle -->
+            <div class="data-saver-toggle">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-leaf text-green-400"></i>
+                    <span>Data Saver Mode</span>
+                </div>
+                <div id="data-saver" class="toggle-switch"></div>
+            </div>
+
+            <!-- Selected Plan Indicator -->
+            <div id="selected-plan" class="hidden mt-4 p-3 bg-green-500/10 border border-green-500/30 rounded-xl">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-check-circle text-green-400"></i>
+                    <div>
+                        <div class="text-xs font-medium">Selected Plan</div>
+                        <div class="text-xs text-gray-400">
+                            <span id="selected-duration"></span> · <span id="selected-amount"></span> KES
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Support Section - Always Visible -->
+        <div class="glass-card p-5 mb-4">
+            <h3 class="text-sm font-bold mb-3 flex items-center gap-2">
+                <i class="fas fa-headset text-green-400"></i>
+                Customer Support
+            </h3>
+            
+            <div class="support-section">
+                <a href="https://wa.me/254787730624?text=Hello%20VinnyConnect%2C%20I%20need%20help%20with%20WiFi" target="_blank" class="support-card">
+                    <div class="support-icon whatsapp"><i class="fab fa-whatsapp"></i></div>
+                    <div class="support-details">
+                        <div class="support-label">WhatsApp</div>
+                        <div class="support-value whatsapp">0787 730 624</div>
+                    </div>
+                </a>
+
+                <a href="tel:+254787730624" class="support-card">
+                    <div class="support-icon phone"><i class="fas fa-phone-alt"></i></div>
+                    <div class="support-details">
+                        <div class="support-label">Call</div>
+                        <div class="support-value">0787 730 624</div>
+                    </div>
+                </a>
+
+                <a href="mailto:support@vinnyconnect.co.ke" class="support-card">
+                    <div class="support-icon email"><i class="fas fa-envelope"></i></div>
+                    <div class="support-details">
+                        <div class="support-label">Email</div>
+                        <div class="support-value">support@...</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Live Chat Note -->
+            <div class="mt-3 p-2 bg-green-500/10 border border-green-500/20 rounded-lg text-center text-xs">
+                <i class="fab fa-whatsapp text-green-400 mr-1"></i>
+                Click WhatsApp for instant response • 24/7 Available
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-500 text-xs">
+            <p>© 2024 VinnyConnect. All rights reserved.</p>
+            <p class="mt-1">Paybill: <span class="text-green-400 font-bold">0768359087</span> | 24/7 Support</p>
+        </footer>
+    </div>
+
+    <!-- Processing Modal -->
+    <div id="processing-modal" class="modal">
+        <div class="modal-content text-center">
+            <div class="spinner mx-auto mb-4"></div>
+            <h3 class="text-lg font-bold mb-1">Processing Payment</h3>
+            <p class="text-sm text-gray-400" id="processing-message">Please wait...</p>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center text-2xl mx-auto mb-4">
+                <i class="fas fa-check text-black"></i>
+            </div>
+            <h3 class="text-xl font-bold text-green-400 mb-1">Payment Successful!</h3>
+            <p class="text-sm text-gray-400 mb-4" id="success-message">WiFi activated</p>
+            
+            <div class="bg-white/5 border border-white/10 rounded-xl p-3 mb-4 text-left text-xs">
+                <div class="flex justify-between mb-1">
+                    <span class="text-gray-400">Plan:</span>
+                    <span class="font-bold text-green-400" id="success-plan">-</span>
+                </div>
+                <div class="flex justify-between mb-1">
+                    <span class="text-gray-400">Devices:</span>
+                    <span class="font-bold" id="success-devices">-</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-400">Phone:</span>
+                    <span class="font-bold" id="success-phone">-</span>
+                </div>
+            </div>
+
+            <div class="connection-bar justify-center mb-4">
+                <div class="status-dot"></div>
+                <span class="text-xs">Connected to VinnyConnect_5G</span>
+            </div>
+
+            <button id="close-success" class="btn-primary text-sm py-3">
+                Start Browsing
+            </button>
+        </div>
+    </div>
+
+    <!-- Admin Modal -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-bold">Admin Panel</h3>
+                <button id="close-admin" class="text-gray-400"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 mb-4">
+                <div class="p-3 bg-black/30 rounded-lg">
+                    <div class="text-xs text-gray-400">Active Users</div>
+                    <div class="text-xl font-bold">24</div>
+                </div>
+                <div class="p-3 bg-black/30 rounded-lg">
+                    <div class="text-xs text-gray-400">Bandwidth</div>
+                    <div class="text-xl font-bold">78%</div>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-xs text-gray-400 mb-1">Generate Voucher</label>
+                <select id="voucher-type" class="input-field text-sm py-2 mb-2">
+                    <option value="19">2 Hours (19 KES)</option>
+                    <option value="29">12 Hours (29 KES)</option>
+                    <option value="39">24 Hours (39 KES)</option>
+                    <option value="200">1 Week (200 KES)</option>
+                </select>
+                <button id="generate-voucher" class="btn-primary text-sm py-2">
+                    Generate
+                </button>
+                <div id="generated-voucher" class="mt-3 p-3 bg-black/40 rounded-lg text-center font-mono text-sm hidden"></div>
+            </div>
+
+            <div class="mb-4">
+                <h4 class="text-sm font-bold mb-2">System Status</h4>
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between text-xs">
+                        <span>M-Pesa API:</span>
+                        <span class="text-green-400"><i class="fas fa-check-circle mr-1"></i> Connected</span>
+                    </div>
+                    <div class="flex items-center justify-between text-xs">
+                        <span>Airtel API:</span>
+                        <span class="text-green-400"><i class="fas fa-check-circle mr-1"></i> Connected</span>
+                    </div>
+                    <div class="flex items-center justify-between text-xs">
+                        <span>Database:</span>
+                        <span class="text-green-400"><i class="fas fa-check-circle mr-1"></i> Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Configuration -->
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB7kHvYQ5xLJQ5xLJQ5xLJQ5xLJQ5xLJQ5xLJQ",
+            authDomain: "vinnyconnect-chat.firebaseapp.com",
+            databaseURL: "https://vinnyconnect-chat-default-rtdb.firebaseio.com",
+            projectId: "vinnyconnect-chat",
+            storageBucket: "vinnyconnect-chat.appspot.com",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:abc123def456"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const messagesRef = database.ref('chat-messages');
+
+        // ============== THREE.JS BACKGROUND ==============
+        class ThreeBackground {
+            constructor() {
+                this.scene = new THREE.Scene();
+                this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                this.particles = [];
+                this.init();
+            }
+
+            init() {
+                const container = document.getElementById('canvas-container');
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                this.renderer.setPixelRatio(window.devicePixelRatio);
+                container.appendChild(this.renderer.domElement);
+
+                const geometry = new THREE.BufferGeometry();
+                const count = 1500;
+                const positions = new Float32Array(count * 3);
+                const colors = new Float32Array(count * 3);
+
+                for (let i = 0; i < count; i++) {
+                    positions[i * 3] = (Math.random() - 0.5) * 50;
+                    positions[i * 3 + 1] = (Math.random() - 0.5) * 50;
+                    positions[i * 3 + 2] = (Math.random() - 0.5) * 50;
+
+                    const color = new THREE.Color().setHSL(Math.random() * 0.3 + 0.3, 0.8, 0.5);
+                    colors[i * 3] = color.r;
+                    colors[i * 3 + 1] = color.g;
+                    colors[i * 3 + 2] = color.b;
+                }
+
+                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+                const material = new THREE.PointsMaterial({
+                    size: 0.1,
+                    vertexColors: true,
+                    transparent: true,
+                    opacity: 0.6,
+                    blending: THREE.AdditiveBlending
+                });
+
+                this.particles = new THREE.Points(geometry, material);
+                this.scene.add(this.particles);
+
+                this.camera.position.z = 15;
+                this.animate();
+            }
+
+            animate() {
+                requestAnimationFrame(() => this.animate());
+
+                const time = Date.now() * 0.0005;
+                this.particles.rotation.x = Math.sin(time * 0.1) * 0.1;
+                this.particles.rotation.y = time * 0.05;
+
+                this.renderer.render(this.scene, this.camera);
+            }
+
+            resize() {
+                this.camera.aspect = window.innerWidth / window.innerHeight;
+                this.camera.updateProjectionMatrix();
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+        }
+
+        // ============== INITIALIZATION ==============
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Three.js
+            const threeBg = new ThreeBackground();
+            window.addEventListener('resize', () => threeBg.resize());
+
+            // State
+            let currentPlan = { amount: null, duration: null, devices: null };
+            let selectedNetwork = 'mpesa';
+            let phoneNumber = '';
+            let pinCode = '';
+            let dataSaverMode = false;
+            let unreadMessages = 1;
+
+            // DOM Elements
+            const planCards = document.querySelectorAll('.plan-card');
+            const selectedPlan = document.getElementById('selected-plan');
+            const selectedDuration = document.getElementById('selected-duration');
+            const selectedAmount = document.getElementById('selected-amount');
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            
+            // Popup Elements
+            const popup = document.getElementById('payment-popup');
+            const overlay = document.getElementById('popup-overlay');
+            const closePopup = document.getElementById('close-popup');
+            const popupPlanDetails = document.getElementById('popup-plan-details');
+            const popupPlanAmount = document.getElementById('popup-plan-amount');
+            const popupPhone = document.getElementById('popup-phone');
+            const popupContinue = document.getElementById('popup-continue');
+            const popupPay = document.getElementById('popup-pay');
+            const popupPinSection = document.getElementById('pin-section');
+            const popupPinInput = document.getElementById('pin-input');
+            const pinBoxes = document.querySelectorAll('#payment-popup .pin-box');
+            const popupMpesa = document.getElementById('popup-mpesa');
+            const popupAirtel = document.getElementById('popup-airtel');
+            const stkSimulation = document.getElementById('stk-simulation');
+
+            // Modals
+            const processingModal = document.getElementById('processing-modal');
+            const successModal = document.getElementById('success-modal');
+            const adminModal = document.getElementById('admin-modal');
+            const notification = document.getElementById('notification');
+            const notificationMessage = document.getElementById('notification-message');
+
+            // Chat Elements
+            const chatButton = document.getElementById('chat-button');
+            const chatContainer = document.getElementById('chat-container');
+            const chatClose = document.getElementById('chat-close');
+            const chatMessages = document.getElementById('chat-messages');
+            const chatInput = document.getElementById('chat-input');
+            const chatSend = document.getElementById('chat-send');
+            const chatBadge = document.getElementById('chat-badge');
+
+            // ============== FIREBASE CHAT ==============
+            // Load chat messages
+            messagesRef.limitToLast(50).on('child_added', (snapshot) => {
+                const message = snapshot.val();
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('chat-message', message.type === 'bot' ? 'bot' : 'user');
+                messageDiv.innerHTML = message.text;
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                // Show badge if chat is closed
+                if (!chatContainer.classList.contains('open')) {
+                    unreadMessages++;
+                    chatBadge.textContent = unreadMessages;
+                }
+            });
+
+            // Send message
+            function sendMessage() {
+                const text = chatInput.value.trim();
+                if (text) {
+                    // Send to Firebase
+                    messagesRef.push({
+                        text: `<i class="fas fa-user mr-1"></i> ${text}`,
+                        type: 'user',
+                        timestamp: Date.now()
+                    });
+
+                    // Clear input
+                    chatInput.value = '';
+
+                    // Bot response (simulated)
+                    setTimeout(() => {
+                        const responses = [
+                            "Thanks for your message! Our team will respond shortly.",
+                            "You're connected with VinnyConnect support. How can we help?",
+                            "I've noted your query. Please wait while I connect you with an agent.",
+                            "Thanks for reaching out! Is this about WiFi connection or payment?",
+                            "Your message has been received. Support will get back to you ASAP."
+                        ];
+                        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                        
+                        messagesRef.push({
+                            text: `<i class="fas fa-headset mr-1"></i> ${randomResponse}`,
+                            type: 'bot',
+                            timestamp: Date.now()
+                        });
+                    }, 1000);
+                }
+            }
+
+            chatSend.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+
+            // Toggle chat
+            chatButton.addEventListener('click', () => {
+                chatContainer.classList.toggle('open');
+                if (chatContainer.classList.contains('open')) {
+                    unreadMessages = 0;
+                    chatBadge.style.display = 'none';
+                }
+            });
+
+            chatClose.addEventListener('click', () => {
+                chatContainer.classList.remove('open');
+            });
+
+            // ============== CATEGORY FILTER ==============
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const category = btn.dataset.category;
+                    
+                    categoryBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-green-500', 'text-black');
+                    });
+                    
+                    btn.classList.add('active', 'bg-green-500', 'text-black');
+
+                    planCards.forEach(card => {
+                        card.style.display = category === 'all' || card.dataset.category === category ? 'block' : 'none';
+                    });
+                });
+            });
+
+            // ============== DATA SAVER TOGGLE ==============
+            const dataSaver = document.getElementById('data-saver');
+            dataSaver.addEventListener('click', () => {
+                dataSaverMode = !dataSaverMode;
+                dataSaver.classList.toggle('active');
+                showNotification(`Data Saver Mode ${dataSaverMode ? 'ON' : 'OFF'}`, 'info');
+            });
+
+            // ============== PLAN CLICK - SHOW POPUP ==============
+            planCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    planCards.forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+
+                    currentPlan.amount = card.dataset.plan;
+                    currentPlan.duration = card.dataset.duration;
+                    currentPlan.devices = card.dataset.devices;
+
+                    selectedDuration.textContent = currentPlan.duration;
+                    selectedAmount.textContent = currentPlan.amount;
+                    selectedPlan.classList.remove('hidden');
+
+                    popupPlanDetails.textContent = `${currentPlan.duration} (${currentPlan.devices} device${currentPlan.devices > 1 ? 's' : ''})`;
+                    popupPlanAmount.textContent = `${currentPlan.amount} KES`;
+
+                    // Reset popup
+                    popupPhone.value = '';
+                    popupPinInput.value = '';
+                    pinCode = '';
+                    phoneNumber = '';
+                    popupContinue.disabled = true;
+                    popupContinue.style.display = 'block';
+                    popupPay.style.display = 'none';
+                    popupPinSection.style.display = 'none';
+                    stkSimulation.classList.remove('active');
+                    
+                    pinBoxes.forEach(box => {
+                        box.textContent = '';
+                        box.classList.remove('filled');
+                    });
+
+                    popup.classList.add('active');
+                    overlay.classList.add('active');
+                });
+            });
+
+            // ============== CLOSE POPUP ==============
+            const closePopupFunction = () => {
+                popup.classList.remove('active');
+                overlay.classList.remove('active');
+                stkSimulation.classList.remove('active');
+            };
+
+            closePopup.addEventListener('click', closePopupFunction);
+            overlay.addEventListener('click', closePopupFunction);
+
+            // ============== NETWORK SELECTION ==============
+            popupMpesa.addEventListener('click', () => {
+                popupMpesa.classList.add('active');
+                popupAirtel.classList.remove('active');
+                selectedNetwork = 'mpesa';
+            });
+
+            popupAirtel.addEventListener('click', () => {
+                popupAirtel.classList.add('active');
+                popupMpesa.classList.remove('active');
+                selectedNetwork = 'airtel';
+            });
+
+            // ============== PHONE INPUT ==============
+            popupPhone.addEventListener('input', (e) => {
+                const value = e.target.value.replace(/[^0-9]/g, '').slice(0, 9);
+                e.target.value = value;
+                phoneNumber = value;
+                popupContinue.disabled = value.length !== 9;
+            });
+
+            // ============== CONTINUE TO PIN ==============
+            popupContinue.addEventListener('click', () => {
+                if (phoneNumber.length !== 9) {
+                    showNotification('Please enter valid 9-digit number', 'error');
+                    return;
+                }
+
+                popupContinue.style.display = 'none';
+                stkSimulation.classList.add('active');
+
+                setTimeout(() => {
+                    stkSimulation.classList.remove('active');
+                    popupPinSection.style.display = 'block';
+                    popupPay.style.display = 'block';
+                    showNotification('STK Push sent to your phone', 'success');
+                    setTimeout(() => popupPinInput.focus(), 100);
+                }, 3000);
+            });
+
+            // ============== PIN INPUT ==============
+            popupPinInput.addEventListener('input', (e) => {
+                const value = e.target.value.replace(/[^0-9]/g, '').slice(0, 4);
+                e.target.value = value;
+                pinCode = value;
+
+                pinBoxes.forEach((box, index) => {
+                    if (index < value.length) {
+                        box.textContent = '•';
+                        box.classList.add('filled');
+                    } else {
+                        box.textContent = '';
+                        box.classList.remove('filled');
+                    }
+                });
+            });
+
+            // ============== CONFIRM PAYMENT ==============
+            popupPay.addEventListener('click', () => {
+                if (pinCode.length !== 4) {
+                    showNotification('Please enter 4-digit PIN', 'error');
+                    return;
+                }
+
+                closePopupFunction();
+                processingModal.classList.add('active');
+                document.getElementById('processing-message').textContent = 
+                    `Processing ${currentPlan.amount} KES via ${selectedNetwork === 'mpesa' ? 'M-Pesa' : 'Airtel'}...`;
+
+                setTimeout(() => {
+                    processingModal.classList.remove('active');
+
+                    document.getElementById('success-plan').textContent = `${currentPlan.amount} KES - ${currentPlan.duration}`;
+                    document.getElementById('success-devices').textContent = `${currentPlan.devices} Device(s)`;
+                    document.getElementById('success-phone').textContent = `+254 ${phoneNumber}`;
+
+                    successModal.classList.add('active');
+
+                    startConnectionTimer(currentPlan.duration);
+                    updateUsageStats(currentPlan.duration);
+                    showCelebration();
+                    showNotification('Payment successful! WiFi activated.', 'success');
+
+                    // Log transaction to Firebase
+                    messagesRef.push({
+                        text: `<i class="fas fa-credit-card mr-1"></i> New payment: ${currentPlan.amount} KES - ${currentPlan.duration}`,
+                        type: 'bot',
+                        timestamp: Date.now()
+                    });
+                }, 1500);
+            });
+
+            // ============== CLOSE SUCCESS MODAL ==============
+            document.getElementById('close-success').addEventListener('click', () => {
+                successModal.classList.remove('active');
+            });
+
+            // ============== VOUCHER ==============
+            document.getElementById('apply-voucher').addEventListener('click', () => {
+                const code = document.getElementById('voucher-input').value.trim();
+                if (!code) {
+                    showNotification('Enter voucher code', 'error');
+                    return;
+                }
+                showNotification('Voucher activated! 24-hour access', 'success');
+                document.getElementById('voucher-input').value = '';
+                startConnectionTimer('24 Hours');
+                showCelebration();
+            });
+
+            // ============== CONNECTION TIMER ==============
+            function startConnectionTimer(duration) {
+                const timerElement = document.getElementById('connection-time');
+                const connectionDot = document.getElementById('connection-dot');
+                
+                let seconds = 2 * 3600;
+                if (duration.includes('Hour')) seconds = parseInt(duration) * 3600;
+                else if (duration.includes('Week')) seconds = 7 * 24 * 3600;
+                else if (duration.includes('Month')) seconds = 30 * 24 * 3600;
+                
+                if (window.connectionTimer) clearInterval(window.connectionTimer);
+                
+                connectionDot.style.background = '#00ff88';
+                
+                window.connectionTimer = setInterval(() => {
+                    const hours = Math.floor(seconds / 3600);
+                    const minutes = Math.floor((seconds % 3600) / 60);
+                    const secs = seconds % 60;
+                    
+                    timerElement.textContent = `Connected · ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                    
+                    if (seconds <= 300) connectionDot.style.background = '#ff4444';
+                    else if (seconds <= 1800) connectionDot.style.background = '#ffaa00';
+                    
+                    if (seconds <= 0) {
+                        clearInterval(window.connectionTimer);
+                        showNotification('Session expired', 'warning');
+                    }
+                    
+                    seconds--;
+                }, 1000);
+
+                updateSpeed();
+            }
+
+            // ============== UPDATE USAGE STATS ==============
+            function updateUsageStats(duration) {
+                document.getElementById('time-left').textContent = duration;
+                document.getElementById('devices-count').textContent = currentPlan.devices;
+                
+                let dataUsed = 0;
+                setInterval(() => {
+                    dataUsed += Math.random() * 0.1;
+                    document.getElementById('data-used').textContent = dataUsed.toFixed(1) + ' MB';
+                }, 5000);
+            }
+
+            // ============== SPEED SIMULATION ==============
+            function updateSpeed() {
+                const speedDisplay = document.getElementById('speed-display');
+                const speedMeter = document.getElementById('speed-meter');
+                
+                setInterval(() => {
+                    let speed = dataSaverMode ? 
+                        Math.floor(Math.random() * 20) + 30 : 
+                        Math.floor(Math.random() * 40) + 60;
+                    speedDisplay.textContent = `${speed} Mbps`;
+                    speedMeter.style.width = `${speed}%`;
+                }, 3000);
+            }
+
+            // ============== CELEBRATION ==============
+            function showCelebration() {
+                const colors = ['#00ff88', '#00ccff', '#9933ff', '#ffaa00'];
+                for (let i = 0; i < 40; i++) {
+                    setTimeout(() => {
+                        const confetti = document.createElement('div');
+                        confetti.className = 'confetti';
+                        confetti.style.left = Math.random() * 100 + '%';
+                        confetti.style.width = (Math.random() * 8 + 3) + 'px';
+                        confetti.style.height = confetti.style.width;
+                        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                        document.body.appendChild(confetti);
+                        setTimeout(() => confetti.remove(), 2500);
+                    }, i * 20);
+                }
+            }
+
+            // ============== NOTIFICATION ==============
+            function showNotification(message, type = 'info') {
+                notificationMessage.textContent = message;
+                notification.className = `notification ${type} show`;
+                setTimeout(() => notification.classList.remove('show'), 3000);
+            }
+
+            // ============== ADMIN PANEL ==============
+            const adminToggle = document.getElementById('admin-toggle');
+            const closeAdmin = document.getElementById('close-admin');
+            const generateVoucher = document.getElementById('generate-voucher');
+            const generatedVoucher = document.getElementById('generated-voucher');
+            const voucherType = document.getElementById('voucher-type');
+
+            adminToggle.addEventListener('click', () => adminModal.classList.add('active'));
+            closeAdmin.addEventListener('click', () => adminModal.classList.remove('active'));
+
+            generateVoucher.addEventListener('click', () => {
+                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+                let code = '';
+                for (let i = 0; i < 8; i++) code += chars[Math.floor(Math.random() * chars.length)];
+                generatedVoucher.textContent = code;
+                generatedVoucher.classList.remove('hidden');
+                showNotification(`Voucher: ${code}`, 'success');
+            });
+
+            // ============== CLICK OUTSIDE MODALS ==============
+            window.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    e.target.classList.remove('active');
+                }
+            });
+
+            // ============== INITIALIZE ==============
+            updateSpeed();
+        });
+    </script>
+</body>
+</html>
