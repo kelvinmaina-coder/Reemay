@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIEMS - Kenyan Integrated Electoral Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a4f72;
+            --primary-dark: #0d2d4d;
+            --primary-light: #2c78c8;
+            --secondary: #3c8dbc;
+            --accent: #f39c12;
+            --accent-dark: #e67e22;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --warning: #f1c40f;
+            --info: #3498db;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --gray: #7f8c8d;
+            --background: #f5f7fa;
+            --text: #2c3e50;
+            --text-light: #ecf0f1;
+            --border: #dee2e6;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --card-shadow-hover: 0 15px 35px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            --gradient-accent: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            --gradient-success: linear-gradient(135deg, var(--success) 0%, #2ecc71 100%);
+            --gradient-danger: linear-gradient(135deg, var(--danger) 0%, #c0392b 100%);
+            
+            /* Kenya flag colors */
+            --kenya-green: #006600;
+            --kenya-red: #BB0000;
+            --kenya-black: #000000;
+            --kenya-white: #FFFFFF;
+        }
+
+        [data-theme="dark"] {
+            --primary: #2c78c8;
+            --primary-dark: #1a4f72;
+            --primary-light: #4ea5e0;
+            --background: #1a1a2e;
+            --background-light: #16213e;
+            --text: #e6e6e6;
+            --text-light: #ffffff;
+            --border: #2d3748;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --card-shadow-hover: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 15px 0;
+            border-bottom: 4px solid var(--accent);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            background: rgba(255, 255, 255, 0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--gradient-primary);
+            filter: brightness(1.1);
+        }
+
+        .btn-accent {
+            background: var(--gradient-accent);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .theme-toggle, .language-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+            backdrop-filter: blur(5px);
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover, .language-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(15deg);
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .sidebar {
+            background-color: var(--primary-dark);
+            color: white;
+            border-radius: 15px;
+            padding: 25px 0;
+            box-shadow: var(--card-shadow);
+            height: fit-content;
+            position: sticky;
+            top: 90px;
+        }
+
+        .sidebar-header {
+            padding: 0 25px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 15px;
+        }
+
+        .sidebar-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-menu a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+            font-weight: 500;
+        }
+
+        .sidebar-menu a:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+
+        .sidebar-menu a.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--accent);
+        }
+
+        .sidebar-menu i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            height: fit-content;
+        }
+
+        [data-theme="dark"] .card {
+            background-color: var(--background-light);
+        }
+
+        .card:hover {
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        [data-theme="dark"] .card-title {
+            color: var(--primary-light);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-card i {
+            font-size: 28px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 10px 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .voter-registration {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary);
+            font-size: 14px;
+        }
+
+        [data-theme="dark"] .form-group label {
+            color: var(--primary-light);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background-color: var(--background);
+            color: var(--text);
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 79, 114, 0.2);
+        }
+
+        .photo-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            background: var(--background);
+            transition: var(--transition);
+        }
+
+        .photo-upload:hover {
+            border-color: var(--primary);
+            background: rgba(26, 79, 114, 0.03);
+        }
+
+        .photo-preview {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background-color: #f1f1f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 4px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .map-container {
+            height: 450px;
+            background: var(--gradient-primary);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><text x="50%" y="50%" font-size="12" text-anchor="middle" dominant-baseline="middle" fill="white">Interactive Kenya Map</text></svg>');
+            background-size: 200px;
+            background-repeat: repeat;
+            opacity: 0.1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            color: var(--text);
+            border-top: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        .notification-badge {
+            background: var(--gradient-danger);
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+
+        .menu-item-with-badge {
+            position: relative;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--gradient-success);
+            border-radius: 4px;
+            width: 65%;
+        }
+
+        .activity-feed {
+            list-style: none;
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(52, 152, 219, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--info);
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .activity-time {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        /* New styles for enhanced features */
+        .kenya-flag-border {
+            border-top: 3px solid var(--kenya-black);
+            border-bottom: 3px solid var(--kenya-red);
+            position: relative;
+        }
+        
+        .kenya-flag-border::before {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--kenya-white);
+        }
+        
+        .kenya-flag-border::after {
+            content: "";
+            position: absolute;
+            bottom: 3px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--kenya-green);
+        }
+        
+        .camera-container {
+            width: 100%;
+            height: 0;
+            padding-bottom: 75%; /* 4:3 aspect ratio */
+            position: relative;
+            overflow: hidden;
+            background-color: #f0f0f0;
+            border-radius: 0.5rem;
+        }
+        
+        .dark .camera-container {
+            background-color: #2a2a2a;
+        }
+        
+        #video-preview {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .capture-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+        
+        .tab-active {
+            border-bottom: 3px solid var(--primary-green);
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+        
+        .dark .tab-active {
+            border-bottom-color: var(--primary-green);
+            color: var(--primary-green);
+        }
+        
+        .dashboard-sidebar {
+            width: 280px;
+            min-height: 100vh;
+            background: white;
+            border-right: 1px solid #eaeaea;
+            padding: 1.5rem 1rem;
+        }
+        
+        .dark .dashboard-sidebar {
+            background: #1e1e1e;
+            border-right-color: #333;
+        }
+        
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-radius: 0.375rem;
+            color: #555;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s;
+        }
+        
+        .dark .sidebar-link {
+            color: #bbb;
+        }
+        
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background-color: rgba(0,102,0,0.1);
+            color: var(--kenya-green);
+        }
+        
+        .sidebar-link i {
+            margin-right: 0.75rem;
+        }
+        
+        .kenya-map {
+            width: 100%;
+            height: 500px;
+            background-color: #f0f0f0;
+            border-radius: 0.5rem;
+        }
+        
+        .dark .kenya-map {
+            background-color: #2a2a2a;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, var(--kenya-green) 0%, #008800 100%);
+            color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stat-card.red {
+            background: linear-gradient(135deg, var(--kenya-red) 0%, #DD0000 100%);
+        }
+        
+        .stat-card.black {
+            background: linear-gradient(135deg, #333333 0%, #555555 100%);
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-top: 0.5rem;
+        }
+        
+        .candidate-card {
+            display: flex;
+            border: 1px solid #eaeaea;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            transition: all 0.2s;
+        }
+        
+        .dark .candidate-card {
+            border-color: #333;
+        }
+        
+        .candidate-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .candidate-photo {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+        }
+        
+        .candidate-info {
+            padding: 1rem;
+            flex-grow: 1;
+        }
+        
+        .party-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: contain;
+            background-color: #f0f0f0;
+        }
+        
+        .ballot-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .ballot-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px dashed #ccc;
+        }
+        
+        .dark .ballot-section {
+            border-bottom-color: #444;
+        }
+        
+        .ballot-candidate {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid #eaeaea;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .dark .ballot-candidate {
+            border-color: #333;
+        }
+        
+        .ballot-candidate:hover {
+            background-color: rgba(0,102,0,0.05);
+        }
+        
+        .ballot-candidate.selected {
+            border-color: var(--kenya-green);
+            background-color: rgba(0,102,0,0.1);
+        }
+        
+        .notification-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--kenya-red);
+            border-radius: 50%;
+            display: inline-block;
+        }
+        
+        .photo-upload-box {
+            width: 100%;
+            min-height: 200px;
+            border: 2px dashed #ccc;
+            border-radius: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            padding: 1rem;
+        }
+        
+        .dark .photo-upload-box {
+            border-color: #444;
+        }
+        
+        .photo-upload-box:hover {
+            border-color: var(--kenya-green);
+            background-color: rgba(0,102,0,0.05);
+        }
+        
+        .photo-preview {
+            max-width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+        }
+        
+        /* Loading spinner */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: var(--kenya-green);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Toast notifications */
+        .toast {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            min-width: 300px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        .dark .toast {
+            background: #1e1e1e;
+        }
+        
+        .toast.success {
+            border-left: 4px solid var(--kenya-green);
+        }
+        
+        .toast.error {
+            border-left: 4px solid var(--kenya-red);
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        /* Animation for cards */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .dashboard {
+                grid-template-columns: 250px 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .voter-registration {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .photo-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-vote-yea"></i>
+                    </div>
+                    <h1>Kenyan Integrated Electoral Management System</h1>
+                </div>
+                <div class="controls">
+                    <button class="theme-toggle" onclick="toggleTheme()">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="language-toggle" onclick="toggleLanguage()">
+                        EN | SW
+                    </button>
+                    <button class="btn btn-accent">
+                        <i class="fas fa-bell"></i> Alerts <span class="notification-badge">3</span>
+                    </button>
+                    <button class="btn btn-outline">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="dashboard">
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <h2><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h2>
+                </div>
+                <ul class="sidebar-menu">
+                    <li><a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fas fa-users"></i> Voter Management</a></li>
+                    <li><a href="#"><i class="fas fa-user-tie"></i> Candidate Management</a></li>
+                    <li><a href="#"><i class="fas fa-vote-yea"></i> Election Management</a></li>
+                    <li><a href="#"><i class="fas fa-chart-bar"></i> Analytics & Reports</a></li>
+                    <li><a href="#"><i class="fas fa-map-marked-alt"></i> Geographic Data</a></li>
+                    <li class="menu-item-with-badge"><a href="#"><i class="fas fa-shield-alt"></i> Security Center <span class="notification-badge">3</span></a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> System Settings</a></li>
+                    <li><a href="#"><i class="fas fa-question-circle"></i> Help & Support</a></li>
+                </ul>
+            </div>
+
+            <div class="main-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-chart-line"></i> System Overview</h2>
+                        <span class="badge">Live</span>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <i class="fas fa-users"></i>
+                            <div class="stat-number">12,458,327</div>
+                            <div class="stat-label">Registered Voters</div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="stat-number">7,281,645</div>
+                            <div class="stat-label">Votes Cast</div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-chart-pie"></i>
+                            <div class="stat-number">58.5%</div>
+                            <div class="stat-label">National Turnout</div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-clock"></i>
+                            <div class="stat-number">14:32:15</div>
+                            <div class="stat-label">Time Remaining</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-exclamation-triangle"></i> Fraud Detection Alerts</h2>
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="fraudChart"></canvas>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                    <p style="text-align: center; font-size: 14px;">65% of threats resolved</p>
+                </div>
+
+                <div class="card full-width">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-map-marked"></i> National Turnout by County</h2>
+                        <div class="filters">
+                            <select class="form-control">
+                                <option>Presidential</option>
+                                <option>Gubernatorial</option>
+                                <option>Senatorial</option>
+                                <option>Women Representative</option>
+                                <option>Member of Parliament</option>
+                                <option>Member of County Assembly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="turnoutChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-bell"></i> Recent Activity</h2>
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <ul class="activity-feed">
+                        <li class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">New voter registered in Nairobi West</div>
+                                <div class="activity-time">2 minutes ago</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-vote-yea"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Voting activity spike detected in Kisumu County</div>
+                                <div class="activity-time">15 minutes ago</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Potential fraud attempt blocked in Mombasa</div>
+                                <div class="activity-time">1 hour ago</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">System backup completed successfully</div>
+                                <div class="activity-time">2 hours ago</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-user-tie"></i> Candidate Overview</h2>
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="tabs">
+                        <div class="tab active">Presidential</div>
+                        <div class="tab">Governors</div>
+                        <div class="tab">Senators</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="candidateChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card full-width">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-user-plus"></i> Voter Registration</h2>
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <div class="voter-registration">
+                        <div>
+                            <div class="form-group">
+                                <label for="nationalId">National ID Number</label>
+                                <input type="text" id="nationalId" class="form-control" placeholder="Enter National ID">
+                            </div>
+                            <div class="form-group">
+                                <label for="phoneNumber">Phone Number</label>
+                                <input type="tel" id="phoneNumber" class="form-control" placeholder="e.g., 07XX XXX XXX">
+                            </div>
+                            <div class="form-group">
+                                <label for="county">County</label>
+                                <select id="county" class="form-control">
+                                    <option value="">Select County</option>
+                                    <option value="nairobi">Nairobi</option>
+                                    <option value="mombasa">Mombasa</option>
+                                    <option value="kisumu">Kisumu</option>
+                                    <option value="nakuru">Nakuru</option>
+                                    <option value="kakamega">Kakamega</option>
+                                    <option value="bungoma">Bungoma</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="constituency">Constituency</label>
+                                <select id="constituency" class="form-control">
+                                    <option value="">Select Constituency</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="ward">Ward</label>
+                                <select id="ward" class="form-control">
+                                    <option value="">Select Ward</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="photo-upload">
+                            <h3>Voter Photo Identification</h3>
+                            <div class="photo-preview">
+                                <i class="fas fa-user fa-5x" id="placeholderIcon" style="color: #ccc;"></i>
+                                <img src="" alt="Voter Photo" id="voterPhoto" style="display: none;">
+                            </div>
+                            <div class="photo-actions">
+                                <button class="btn btn-primary" onclick="document.getElementById('uploadPhoto').click()">
+                                    <i class="fas fa-upload"></i> Upload Photo
+                                </button>
+                                <button class="btn btn-primary" onclick="startCamera()">
+                                    <i class="fas fa-camera"></i> Take Photo
+                                </button>
+                                <button class="btn btn-outline" onclick="clearPhoto()">
+                                    <i class="fas fa-trash"></i> Clear
+                                </button>
+                            </div>
+                            <input type="file" id="uploadPhoto" accept="image/*" style="display: none;" onchange="previewPhoto(this)">
+                            <div id="cameraContainer" style="display: none; margin-top: 15px; text-align: center;">
+                                <video id="video" width="300" height="200" autoplay style="border-radius: 8px;"></video>
+                                <button class="btn btn-accent" onclick="capturePhoto()" style="margin-top: 10px;">
+                                    <i class="fas fa-camera"></i> Capture Photo
+                                </button>
+                            </div>
+                            <p style="font-size: 12px; text-align: center; margin-top: 10px;">Upload a clear headshot for voter identification</p>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn btn-accent" style="padding: 15px 30px;">
+                            <i class="fas fa-save"></i> Register Voter
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card full-width">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-kenya"></i> Kenya Election Map</h2>
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                    <div class="map-container">
+                        <div style="text-align: center; z-index: 2;">
+                            <i class="fas fa-map fa-3x" style="margin-bottom: 15px;"></i>
+                            <h3>Interactive Kenya Map</h3>
+                            <p>Real-time results visualization by region</p>
+                            <button class="btn btn-outline" style="margin-top: 15px; background: rgba(255,255,255,0.2); color: white; border-color: white;">
+                                <i class="fas fa-play"></i> Launch Map Viewer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2023 Kenyan Integrated Electoral Management System (KIEMS) | Ensuring Free, Fair and Transparent Elections</p>
+            <p>Powered by Blockchain Technology & AI Security Systems | All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const themeToggle = document.querySelector('.theme-toggle i');
+            
+            if (currentTheme === 'dark') {
+                body.removeAttribute('data-theme');
+                themeToggle.classList.remove('fa-sun');
+                themeToggle.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.classList.remove('fa-moon');
+                themeToggle.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Language toggle functionality
+        function toggleLanguage() {
+            const languageToggle = document.querySelector('.language-toggle');
+            const currentLanguage = languageToggle.textContent.includes('EN') ? 'en' : 'sw';
+            
+            if (currentLanguage === 'en') {
+                languageToggle.textContent = 'SW | EN';
+                showToast('Language changed to Kiswahili', 'success');
+            } else {
+                languageToggle.textContent = 'EN | SW';
+                showToast('Language changed to English', 'success');
+            }
+        }
+
+        // Toast notification function
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                <span style="margin-left: 10px;">${message}</span>
+                <button style="margin-left: auto; background: none; border: none; cursor: pointer;" onclick="this.parentElement.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.remove();
+                }
+            }, 5000);
+        }
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            document.querySelector('.theme-toggle i').classList.remove('fa-moon');
+            document.querySelector('.theme-toggle i').classList.add('fa-sun');
+        }
+
+        // Charts initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fraud detection chart
+            const fraudCtx = document.getElementById('fraudChart').getContext('2d');
+            const fraudChart = new Chart(fraudCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Duplicate IDs', 'Multiple Voting', 'Suspicious Patterns', 'Location Mismatch', 'Identity Theft'],
+                    datasets: [{
+                        data: [12, 19, 8, 15, 7],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(255, 206, 86, 0.7)',
+                            'rgba(75, 192, 192, 0.7)',
+                            'rgba(153, 102, 255, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        }
+                    }
+                }
+            });
+
+            // Turnout chart
+            const turnoutCtx = document.getElementById('turnoutChart').getContext('2d');
+            const turnoutChart = new Chart(turnoutCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Nairobi', 'Mombasa', 'Kisumu', 'Nakuru', 'Uasin Gishu', 'Kiambu', 'Kakamega', 'Bungoma'],
+                    datasets: [{
+                        label: 'Voter Turnout %',
+                        data: [65, 58, 62, 59, 55, 70, 52, 57],
+                        backgroundColor: 'rgba(58, 128, 186, 0.7)',
+                        borderColor: 'rgba(58, 128, 186, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Candidate chart
+            const candidateCtx = document.getElementById('candidateChart').getContext('2d');
+            const candidateChart = new Chart(candidateCtx, {
+                type: 'polarArea',
+                data: {
+                    labels: ['Jubilee', 'ODM', 'UDA', 'Wiper', 'ANC'],
+                    datasets: [{
+                        data: [35, 25, 20, 10, 10],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(255, 206, 86, 0.7)',
+                            'rgba(75, 192, 192, 0.7)',
+                            'rgba(153, 102, 255, 0.7)'
+                        ],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        }
+                    }
+                }
+            });
+        });
+
+        // Photo upload and capture functionality
+        function previewPhoto(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('voterPhoto').src = e.target.result;
+                    document.getElementById('voterPhoto').style.display = 'block';
+                    document.getElementById('placeholderIcon').style.display = 'none';
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function clearPhoto() {
+            document.getElementById('voterPhoto').src = '';
+            document.getElementById('voterPhoto').style.display = 'none';
+            document.getElementById('placeholderIcon').style.display = 'block';
+            document.getElementById('uploadPhoto').value = '';
+            
+            // Also stop camera if it's running
+            if (window.stream) {
+                window.stream.getTracks().forEach(track => track.stop());
+                document.getElementById('cameraContainer').style.display = 'none';
+            }
+        }
+
+        function startCamera() {
+            const cameraContainer = document.getElementById('cameraContainer');
+            cameraContainer.style.display = 'block';
+            
+            navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+                .then(function(videoStream) {
+                    window.stream = videoStream;
+                    const video = document.getElementById('video');
+                    video.srcObject = videoStream;
+                })
+                .catch(function(err) {
+                    console.error("Error accessing camera: ", err);
+                    showToast("Unable to access camera. Please check permissions.", "error");
+                });
+        }
+
+        function capturePhoto() {
+            const video = document.getElementById('video');
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            // Stop the video stream
+            const stream = video.srcObject;
+            const tracks = stream.getTracks();
+            tracks.forEach(track => track.stop());
+            
+            // Store the photo data
+            const photoData = canvas.toDataURL('image/png');
+            
+            // Show the photo instead of the video
+            document.getElementById('voterPhoto').src = photoData;
+            document.getElementById('voterPhoto').style.display = 'block';
+            document.getElementById('placeholderIcon').style.display = 'none';
+            
+            // Hide the camera container
+            document.getElementById('cameraContainer').style.display = 'none';
+            
+            showToast('Photo captured successfully!', 'success');
+        }
+
+        // Simulate dynamic data updates
+        setInterval(() => {
+            // Update time remaining
+            const timeElement = document.querySelector('.stat-card:nth-child(4) .stat-number');
+            if (timeElement) {
+                const parts = timeElement.textContent.split(':');
+                let hours = parseInt(parts[0]);
+                let minutes = parseInt(parts[1]);
+                let seconds = parseInt(parts[2]);
+                
+                seconds--;
+                if (seconds < 0) {
+                    seconds = 59;
+                    minutes--;
+                    if (minutes < 0) {
+                        minutes = 59;
+                        hours--;
+                        if (hours < 0) {
+                            hours = 0;
+                            minutes = 0;
+                            seconds = 0;
+                        }
+                    }
+                }
+                
+                timeElement.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+            
+            // Randomly update votes cast
+            const votesElement = document.querySelector('.stat-card:nth-child(2) .stat-number');
+            if (votesElement && Math.random() > 0.7) {
+                const currentVotes = parseInt(votesElement.textContent.replace(/,/g, ''));
+                votesElement.textContent = (currentVotes + Math.floor(Math.random() * 100)).toLocaleString();
+                
+                // Also update turnout percentage
+                const registeredVoters = parseInt(document.querySelector('.stat-card:nth-child(1) .stat-number').textContent.replace(/,/g, ''));
+                const turnoutElement = document.querySelector('.stat-card:nth-child(3) .stat-number');
+                const newTurnout = ((currentVotes + 1) / registeredVoters * 100).toFixed(1);
+                turnoutElement.textContent = `${newTurnout}%`;
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
